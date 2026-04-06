@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════════╗
+║           TORAM GUILD HQ — EDIT GUIDE                               ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  HOW TO ADD A NEW BOSS CARD (Character or Pet tab):                 ║
+║  Copy a <div class="boss-card ..."> block and paste it inside        ║
+║  #boss-grid (character) or #pet-grid (pet).                          ║
+║  • data-type: "boss" | "mini" | "mob"                               ║
+║  • data-text: keywords for search (boss name, location, level)      ║
+║  • class on card: type-boss | type-mini | type-mob                  ║
+║  • chip classes: chip-boss | chip-mini | chip-mob                   ║
+║                                                                     ║
+║  HOW TO ADD A FOOD BUFF ROW:                                        ║
+║  Find #food-tbody and copy any <tr> row, then edit:                 ║
+║  • data-cat: "atk" | "matk" | "hp" | "def" | "crit" | "util" | "exp"║
+║  • data-text: search keywords                                        ║
+║  • Fill in food name, effect, buff code, chip type, notes           ║
+║  • Remove "buff-code--empty" class from <code> when code is filled  ║
+║                                                                     ║
+║  HOW TO ADD A CONSUMABLE ROW:                                       ║
+║  Add a <tr data-cat="..." data-text="..."> inside #cons-tbody.      ║
+║  • data-cat: "healing"|"attack"|"magic"|"defense"|"utility"         ║
+║                                                                     ║
+║  HOW TO ADD A GUILD TIP:                                            ║
+║  Add a <div class="tip-card"> inside .tips-grid.                    ║
+║                                                                     ║
+║  HOW TO ADD A RAID VIDEO:                                           ║
+║  Find #raid-video-grid and copy any .raid-video-card block.         ║
+║  Replace the YouTube embed src with your video URL:                 ║
+║  Format: https://www.youtube.com/embed/VIDEO_ID                     ║
+║  (get VIDEO_ID from the YouTube URL after "?v=")                    ║
+║                                                                     ║
+║  HOW TO ADD/EDIT MEMBERS:                                           ║
+║  Find #member-grid and copy any .member-card block.                 ║
+║  • data-role: "gm" | "vgm" | "member"                              ║
+║  • Edit name, role badge, join date, and notes                      ║
+║  • GM/VGM roles use special badge colors automatically              ║
+║                                                                     ║
+║  HOW TO ADD A GALLERY PHOTO:                                        ║
+║  Find #gallery-grid and copy any .gallery-card block.               ║
+║  Replace the img src with your screenshot URL or file path.         ║
+║                                                                     ║
+║  LEVEL CAP: Update the badge text in .header-badge if cap           ║
+║  changes again. Search "Level Cap" to find it quickly.              ║
+║                                                                     ║
+║  HOW TO ADD YOUR GUILD LOGO:                                        ║
+║  Find the .guild-logo-img div in the header. Replace the ⚔ emoji   ║
+║  inside it with: <img src="your-logo.png" alt="Guild Logo">         ║
+║  Put the image file in the same folder as this HTML file.           ║
+║  Recommended size: 56×56px or larger (it will be cropped to circle) ║
+╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toram Guild HQ — Guild Resource</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --gold-dim: #7a6230;
+    --bg-deep: #0a0c10;
+    --bg-card: #11151e;
+    --bg-card2: #161c28;
+    --border: #2a3050;
+    --border-gold: #3a2e10;
+    --text: #ccd4e8;
+    --text-dim: #6a7898;
+    --accent-blue: #3d6ed4;
+    --accent-teal: #1eb8b0;
+    --accent-red: #c94a3a;
+    --accent-purple: #8b5cf6;
+    --accent-green: #22c55e;
+    --accent-orange: #f59e0b;
+  }
+
+  /* ── LIGHT MODE OVERRIDES ── */
+  body.light-mode {
+    --gold: #8a6010;
+    --gold-light: #6b4a08;
+    --gold-dim: #b8922a;
+    --bg-deep: #f0f2f8;
+    --bg-card: #ffffff;
+    --bg-card2: #e8ecf5;
+    --border: #c8cfe0;
+    --border-gold: #d4b870;
+    --text: #1e2438;
+    --text-dim: #5a6480;
+    --accent-blue: #2a56b0;
+    --accent-teal: #0e9890;
+    --accent-red: #b03020;
+    --accent-purple: #6b3fd4;
+    --accent-green: #1a9e4a;
+    --accent-orange: #c07800;
+  }
+  body.light-mode::before {
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(42,86,176,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(107,63,212,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 20% 60%, rgba(138,96,16,0.06) 0%, transparent 50%);
+  }
+  body.light-mode::after {
+    background-image:
+      linear-gradient(rgba(138,96,16,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(138,96,16,0.06) 1px, transparent 1px);
+  }
+  body.light-mode .consoom-table tbody tr { background: #fff; }
+  body.light-mode .consoom-table tbody tr:nth-child(even) { background: var(--bg-card2); }
+  body.light-mode .filter-select option { background: #fff; color: #1e2438; }
+  body.light-mode code.buff-code {
+    background: rgba(138,96,16,0.1);
+    border-color: var(--gold-dim);
+    color: var(--gold-light);
+  }
+  body.light-mode code.buff-code--empty {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-dim);
+  }
+  body.light-mode .logo-title { text-shadow: 0 0 20px rgba(138,96,16,0.2); }
+  body.light-mode .raid-channel-bar {
+    background: linear-gradient(135deg, rgba(255,0,0,0.05), rgba(138,96,16,0.04));
+  }
+  body.light-mode .coryn-link-bar {
+    background: linear-gradient(135deg, rgba(138,96,16,0.06), rgba(42,86,176,0.06));
+  }
+  body.light-mode .edit-guide-card {
+    background: rgba(138,96,16,0.04);
+  }
+  body.light-mode .chip-boss { background:rgba(176,48,32,0.1); }
+  body.light-mode .chip-mini { background:rgba(192,120,0,0.1); }
+  body.light-mode .chip-mob  { background:rgba(42,86,176,0.1); }
+  body.light-mode .chip-pet  { background:rgba(26,158,74,0.1); }
+  body.light-mode .chip-char { background:rgba(107,63,212,0.1); }
+  body.light-mode .chip-diff { background:rgba(138,96,16,0.1); }
+  body.light-mode .chip-atk  { background:rgba(176,48,32,0.1); }
+  body.light-mode .chip-matk { background:rgba(107,63,212,0.1); }
+  body.light-mode .chip-hp   { background:rgba(26,158,74,0.1); }
+  body.light-mode .chip-def  { background:rgba(42,86,176,0.1); }
+  body.light-mode .chip-crit { background:rgba(192,120,0,0.1); }
+  body.light-mode .chip-util { background:rgba(14,152,144,0.1); }
+  body.light-mode .chip-exp  { background:rgba(138,96,16,0.1); }
+  body.light-mode .sp-gold   { background:rgba(138,96,16,0.1); }
+  body.light-mode .sp-red    { background:rgba(176,48,32,0.1); }
+  body.light-mode .sp-blue   { background:rgba(42,86,176,0.1); }
+  body.light-mode .sp-green  { background:rgba(26,158,74,0.1); }
+  body.light-mode .sp-purple { background:rgba(107,63,212,0.1); }
+  body.light-mode .sp-teal   { background:rgba(14,152,144,0.1); }
+  body.light-mode .badge-gm   { background:rgba(138,96,16,0.1); }
+  body.light-mode .badge-vgm  { background:rgba(107,63,212,0.1); }
+  body.light-mode .badge-mem  { background:rgba(42,86,176,0.08); }
+  body.light-mode .xp-lv     { background:rgba(0,0,0,0.04); border-color:rgba(0,0,0,0.1); }
+  body.light-mode .member-avatar { background: var(--bg-card2); border-color: var(--border); }
+  body.light-mode .gallery-img-wrap { background: var(--bg-card2); }
+  body.light-mode .lightbox-overlay { background: rgba(0,0,0,0.75); }
+
+  /* ── THEME TOGGLE BUTTON ── */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 6px 14px 6px 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { border-color: var(--gold-dim); }
+  .toggle-track {
+    width: 36px; height: 20px;
+    background: var(--border);
+    border-radius: 20px;
+    position: relative;
+    transition: background 0.25s;
+    flex-shrink: 0;
+  }
+  .toggle-track.on { background: var(--gold-dim); }
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 14px; height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .toggle-track.on .toggle-thumb { transform: translateX(16px); }
+  .toggle-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* ── GUILD LOGO PLACEHOLDER ── */
+  .guild-logo-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-dim);
+    background: var(--bg-card2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+  }
+  .guild-logo-img:hover { border-color: var(--gold); }
+  .guild-logo-img img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+
+  /* ── HEADER RIGHT CLUSTER ── */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(61,110,212,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 20% 60%, rgba(201,168,76,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* GRID TEXTURE */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border-gold);
+    padding: 28px 0 20px;
+    position: relative;
+  }
+  header::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-top: 20px;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    display: flex;
+    flex-direction: column;
+  }
+  .logo-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(18px, 3vw, 28px);
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  }
+  .logo-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--gold-dim);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .header-badge {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .badge {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+  .badge-gold { color: var(--gold); border-color: var(--gold-dim); background: rgba(201,168,76,0.07); }
+  .badge-blue { color: #7ab3f0; border-color: #2a4a80; background: rgba(61,110,212,0.1); }
+
+  /* ── NAV TABS ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin: 28px 0 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+    position: relative;
+    top: 1px;
+  }
+  .tab-btn:hover { color: var(--gold-light); }
+  .tab-btn.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+    background: linear-gradient(0deg, rgba(201,168,76,0.07) 0%, transparent 100%);
+  }
+  .tab-icon { margin-right: 8px; }
+
+  /* ── PANELS ── */
+  .panel { display: none; padding: 30px 0 60px; }
+  .panel.active { display: block; }
+
+  /* ── SECTION TITLE ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .section-head h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+  }
+
+  /* ── SEARCH / FILTER BAR ── */
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-input {
+    flex: 1; min-width: 200px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--gold-dim); }
+  .search-input::placeholder { color: var(--text-dim); }
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    color: var(--text-dim);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .filter-btn:hover, .filter-btn.active { color: var(--gold); border-color: var(--gold-dim); background: rgba(201,168,76,0.06); }
+  .filter-select {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+  }
+  .filter-select option { background: #1a1f2e; }
+
+  /* ── BOSS CARDS ── */
+  .boss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .boss-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: default;
+  }
+  .boss-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .boss-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+  .boss-card.type-boss::before { background: linear-gradient(90deg, var(--accent-red), transparent); }
+  .boss-card.type-mini::before { background: linear-gradient(90deg, var(--accent-orange), transparent); }
+  .boss-card.type-mob::before { background: linear-gradient(90deg, var(--accent-blue), transparent); }
+
+  .boss-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  .boss-name {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #99802d;
+    line-height: 1.3;
+  }
+  .boss-level-range {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .boss-level-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: right;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .boss-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+  }
+  .chip-boss { background: rgba(201,74,58,0.15); color: #f08070; border: 1px solid rgba(201,74,58,0.3); }
+  .chip-mini { background: rgba(245,158,11,0.12); color: #fbbf5a; border: 1px solid rgba(245,158,11,0.3); }
+  .chip-mob  { background: rgba(61,110,212,0.15); color: #4c75fa; border: 1px solid rgba(61,110,212,0.3); }
+  .chip-pet  { background: rgba(34,197,94,0.12); color: #6ee7a0; border: 1px solid rgba(34,197,94,0.3); }
+  .chip-char { background: rgba(139,92,246,0.15); color: #8c76e4; border: 1px solid rgba(139,92,246,0.3); }
+  .chip-diff { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+
+  .boss-location {
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .boss-tips {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 6px;
+  }
+  .boss-exp-note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--accent-teal);
+    font-weight: 600;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-dim);
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+  }
+
+  /* ── FOOD/BUFF TABLE ── */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .food-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .food-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-1px); }
+  .food-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .food-card.cat-atk::before { background: linear-gradient(90deg, #c94a3a, transparent); }
+  .food-card.cat-matk::before { background: linear-gradient(90deg, #8b5cf6, transparent); }
+  .food-card.cat-def::before { background: linear-gradient(90deg, #3d6ed4, transparent); }
+  .food-card.cat-hp::before { background: linear-gradient(90deg, #22c55e, transparent); }
+  .food-card.cat-exp::before { background: linear-gradient(90deg, var(--gold), transparent); }
+  .food-card.cat-util::before { background: linear-gradient(90deg, #1eb8b0, transparent); }
+  .food-name {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e8eeff;
+    margin-bottom: 6px;
+  }
+  .food-effect {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .food-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .food-source {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .food-duration {
+    font-size: 12px;
+    color: var(--accent-teal);
+    font-weight: 600;
+  }
+
+  /* ── CONSUMABLES ── */
+  .consoom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .consoom-table thead tr {
+    background: var(--bg-card2);
+  }
+  .consoom-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--gold-dim);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+  }
+  .consoom-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid rgba(42,48,80,0.6);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .consoom-table tr:last-child td { border-bottom: none; }
+  .consoom-table tbody tr { background: var(--bg-card); transition: background 0.15s; }
+  .consoom-table tbody tr:nth-child(even) { background: var(--bg-card2); }
+  .consoom-table tbody tr:hover { background: rgba(201,168,76,0.04); }
+  .consoom-table .item-name { font-weight: 700; color: #dde4ff; }
+  .effect-atk { color: #f08070; font-weight: 600; }
+  .effect-matk { color: #c4b5fd; font-weight: 600; }
+  .effect-hp { color: #6ee7a0; font-weight: 600; }
+  .effect-util { color: #7dd3fc; font-weight: 600; }
+  .effect-exp { color: var(--gold); font-weight: 600; }
+
+  /* ── TIPS PANEL ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .tip-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    position: relative;
+  }
+  .tip-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .tip-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .tip-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .tip-body li { margin-left: 16px; margin-top: 4px; }
+
+  /* ── CORYN LINK ── */
+  .coryn-link-bar {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(61,110,212,0.08));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .coryn-link-bar p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .coryn-link-bar strong { color: var(--gold-light); }
+  .btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    padding: 9px 18px;
+    color: var(--gold-light);
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-link:hover { background: rgba(201,168,76,0.2); color: #fff; }
+
+  /* ── BUFF CODE ── */
+  code.buff-code {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 5px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  code.buff-code:hover { background: rgba(201,168,76,0.2); }
+  code.buff-code:active { background: rgba(201,168,76,0.35); }
+  code.buff-code--empty {
+    color: var(--text-dim);
+    background: transparent;
+    border-color: var(--border);
+    border-style: dashed;
+    letter-spacing: 1px;
+  }
+
+  /* ── XP LEVEL PILLS ── */
+  .xp-lv {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--c, var(--text-dim));
+    letter-spacing: 0.3px;
+  }
+
+  /* ── FOOD CHIP TYPES ── */
+  .chip-atk  { background:rgba(201,74,58,0.15);   color:#f08070; border:1px solid rgba(201,74,58,0.3); }
+  .chip-matk { background:rgba(139,92,246,0.15);  color:#c4b5fd; border:1px solid rgba(139,92,246,0.3); }
+  .chip-hp   { background:rgba(34,197,94,0.12);   color:#6ee7a0; border:1px solid rgba(34,197,94,0.3); }
+  .chip-def  { background:rgba(61,110,212,0.15);  color:#7ab3f0; border:1px solid rgba(61,110,212,0.3); }
+  .chip-crit { background:rgba(245,158,11,0.12);  color:#fbbf5a; border:1px solid rgba(245,158,11,0.3); }
+  .chip-util { background:rgba(30,184,176,0.12);  color:#5eead4; border:1px solid rgba(30,184,176,0.3); }
+  .chip-exp  { background:rgba(201,168,76,0.1);   color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
+
+  /* copied code toast */
+  .copy-toast {
+    position: fixed;
+    bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #22c55e; color: #000;
+    font-family: 'Rajdhani',sans-serif; font-size:14px; font-weight:700;
+    padding: 8px 20px; border-radius: 6px;
+    opacity: 0; pointer-events:none;
+    transition: opacity 0.2s;
+    z-index: 999;
+  }
+  .copy-toast.show { opacity: 1; }
+
+
+  @media (max-width: 640px) {
+    .boss-grid, .food-grid, .tips-grid { grid-template-columns: 1fr; }
+    .consoom-table { font-size: 12px; }
+    .consoom-table th, .consoom-table td { padding: 9px 10px; }
+  }
+
+  /* ── RAID VIDEO GRID ── */
+  .raid-video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+  .raid-video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .raid-video-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+  .raid-video-card::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-red), var(--gold), transparent);
+  }
+  .raid-video-embed {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    display: block;
+    background: #000;
+  }
+  .raid-video-info {
+    padding: 14px 16px;
+  }
+  .raid-video-title {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e8eeff;
+    margin-bottom: 5px;
+  }
+  .raid-video-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .raid-channel-bar {
+    background: linear-gradient(135deg, rgba(255,0,0,0.08), rgba(201,168,76,0.06));
+    border: 1px solid rgba(255,60,60,0.2);
+    border-radius: 10px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .raid-channel-bar p { font-size: 14px; color: var(--text); }
+  .btn-yt {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,0,0,0.15);
+    border: 1px solid rgba(255,60,60,0.4);
+    border-radius: 6px;
+    padding: 9px 18px;
+    color: #ff6060;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-yt:hover { background: rgba(255,0,0,0.25); color: #fff; }
+
+  /* ── MEMBER GRID ── */
+  .member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .member-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .member-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-2px); }
+  .member-card[data-role="gm"]::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--gold), #f0d080, transparent);
+  }
+  .member-card[data-role="vgm"]::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--accent-purple), transparent);
+  }
+  .member-card[data-role="member"]::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--accent-blue), transparent);
+  }
+  .member-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg-card2);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .member-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  .member-name {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e8eeff;
+    margin-bottom: 6px;
+  }
+  .member-role-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .badge-gm   { background:rgba(201,168,76,0.15); color:var(--gold); border:1px solid rgba(201,168,76,0.35); }
+  .badge-vgm  { background:rgba(139,92,246,0.15); color:#c4b5fd; border:1px solid rgba(139,92,246,0.35); }
+  .badge-mem  { background:rgba(61,110,212,0.12); color:#7ab3f0; border:1px solid rgba(61,110,212,0.3); }
+  .member-info {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .member-info strong { color: var(--text); }
+  .member-filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+
+  /* ── GALLERY GRID ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .gallery-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: pointer;
+  }
+  .gallery-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+  .gallery-img-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-card2);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    font-size: 40px;
+    color: var(--text-dim);
+  }
+  .gallery-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-caption {
+    padding: 12px 14px;
+  }
+  .gallery-caption-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #dde4ff;
+    margin-bottom: 3px;
+  }
+  .gallery-caption-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.88);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .lightbox-overlay.open { display: flex; }
+  .lightbox-img { max-width:90vw; max-height:85vh; border-radius:6px; object-fit:contain; }
+  .lightbox-close {
+    position: absolute; top:18px; right:24px;
+    font-size: 28px; color: #fff; cursor:pointer; line-height:1;
+    background: none; border: none;
+    font-family: sans-serif;
+  }
+  .lightbox-caption {
+    position: absolute; bottom: 24px; left:50%; transform:translateX(-50%);
+    color: #e8eeff; font-family: 'Cinzel',serif; font-size:13px;
+    background: rgba(0,0,0,0.6); padding:6px 18px; border-radius:4px;
+    white-space: nowrap;
+  }
+
+  /* ── EDIT GUIDE CARD ── */
+  .edit-guide-card {
+    background: rgba(201,168,76,0.04);
+    border: 1px dashed var(--gold-dim);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-top: 32px;
+  }
+  .edit-guide-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .edit-guide-card p, .edit-guide-card li {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.75;
+  }
+  .edit-guide-card li { margin-left: 18px; margin-top: 3px; }
+  .edit-guide-card strong { color: var(--text); }
+  .edit-guide-card code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #7ab3f0;
+    background: rgba(61,110,212,0.1);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .edit-step {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    align-items: flex-start;
+  }
+  .edit-step-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    background: var(--gold-dim);
+    color: #000;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items:center; justify-content:center;
+    margin-top: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .panel.active .boss-card,
+  .panel.active .food-card,
+  .panel.active .tip-card {
+    animation: fadeUp 0.35s ease both;
+  }
+  .panel.active .boss-card:nth-child(2) { animation-delay: 0.04s; }
+  .panel.active .boss-card:nth-child(3) { animation-delay: 0.08s; }
+  .panel.active .boss-card:nth-child(4) { animation-delay: 0.12s; }
+  .panel.active .boss-card:nth-child(5) { animation-delay: 0.16s; }
+  .panel.active .boss-card:nth-child(6) { animation-delay: 0.20s; }
+
+  /* ── STAT PILLS ── */
+  .stat-pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px 2px;
+  }
+  .sp-gold { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .sp-red { background: rgba(201,74,58,0.15); color: #f08070; }
+  .sp-blue { background: rgba(61,110,212,0.15); color: #7ab3f0; }
+  .sp-green { background: rgba(34,197,94,0.12); color: #6ee7a0; }
+  .sp-purple { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .sp-teal { background: rgba(30,184,176,0.12); color: #5eead4; }
+
+  /* level range display */
+  .lvl-col { text-align: right; }
+  .lvl-range-big {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--gold);
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <!-- Guild Logo + Name -->
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="guild-logo-img" title="Guild Logo — replace with your own image">
+          <!--
+            TO ADD YOUR LOGO:
+            Replace the ⚔ emoji below with:
+            <img src="your-logo.png" alt="Guild Logo">
+            Put the image file in the same folder as this HTML.
+          -->
+          <img src="guild-logo.png" alt="Guild Logo">
+        </div>
+        <div class="logo">
+          <span class="logo-title">Choirs of Angel - Toram Guild</span>
+          <span class="logo-sub">Leveling · Buffs · Guild Memories</span>
+        </div>
+      </div>
+
+      <!-- Badges + Theme Toggle -->
+      <div class="header-right">
+        <div class="header-badge">
+          <span class="badge badge-gold">Guild Resource</span>
+          <span class="badge badge-blue">Angel Guides</span>
+        </div>
+        <!-- THEME TOGGLE -->
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+          <div class="toggle-track" id="toggle-track">
+            <div class="toggle-thumb"></div>
+          </div>
+          <span class="toggle-label" id="toggle-label">🌙 Dark</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('leveling', this)">
+        <span class="tab-icon">🗡</span>Character Leveling
+      </button>
+      <button class="tab-btn" onclick="showTab('pet', this)">
+        <span class="tab-icon">🐾</span>Pet Leveling
+      </button>
+      <button class="tab-btn" onclick="showTab('food', this)">
+        <span class="tab-icon">🍖</span>FoodBuffs Codes
+      </button>
+      <button class="tab-btn" onclick="showTab('consumables', this)">
+        <span class="tab-icon">⚗</span>Consumables
+      </button>
+      <button class="tab-btn" onclick="showTab('mq', this)">
+        <span class="tab-icon">📖</span>MQ EXP Calculator
+      </button>
+      <button class="tab-btn" onclick="showTab('raids', this)">
+        <span class="tab-icon">🎬</span>Guild Raids
+      </button>
+      <button class="tab-btn" onclick="showTab('members', this)">
+        <span class="tab-icon">👥</span>Members
+      </button>
+      <button class="tab-btn" onclick="showTab('gallery', this)">
+        <span class="tab-icon">🖼</span>Gallery
+      </button>
+      <button class="tab-btn" onclick="showTab('tips', this)">
+        <span class="tab-icon">📜</span>Guild Tips
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: CHARACTER LEVELING              -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-leveling" class="panel active">
+    <div class="section-head">
+      <h2>Character Leveling Spots</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="coryn-link-bar">
+      <p>You can use <strong>coryn.club/leveling.php</strong> to find bosses matching your exact level — it shows EXP values for every boss, mini-boss and mob relative to your character level.</p>
+      <a href="https://coryn.club/leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Open Coryn Leveling Tool</a>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" class="search-input" id="char-search" placeholder="Search boss name or location…" oninput="filterCards('char-search','boss-grid','boss-card')">
+      <button class="filter-btn active" onclick="filterType(this,'all','boss-grid')">All</button>
+      <button class="filter-btn" onclick="filterType(this,'boss','boss-grid')">Boss</button>
+      <button class="filter-btn" onclick="filterType(this,'mini','boss-grid')">Mini-Boss</button>
+      <button class="filter-btn" onclick="filterType(this,'mob','boss-grid')">Mob</button>
+    </div>
+
+    <div class="boss-grid" id="boss-grid">
+
+      <!-- LEVEL 1-30 -->
+      <div class="boss-card type-mob" data-type="mob" data-text="shell mask nisel mountain mountainside 1 30">
+        <div class="boss-header">
+          <div class="boss-name">Shell Mask</div>
+          <div class="lvl-col"><span class="lvl-range-big">1–30</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mob">Mob</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Normal</span></div>
+        <div class="boss-location">📍 Nisel Mountain: Mountainside</div>
+        <div class="boss-tips">Best early-game mob. Safe, good EXP density. Grind here until you reach 30.</div>
+        <div class="boss-exp-note">✦ Recommended for first-time characters</div>
+      </div>
+
+        <div class="boss-card type-mob" data-type="mob" data-text="bone dragonewt ancient empress tomb 30 60">
+        <div class="boss-header">
+          <div class="boss-name">Bone Dragonewt</div>
+          <div class="lvl-col"><span class="lvl-range-big">30–60</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mob">Mob</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Normal</span></div>
+        <div class="boss-location">📍 Ancient Empress's Tomb: Area 1</div>
+        <div class="boss-tips">You can sell/use Dark Gray Metal Plate for Blacksmith Leveling. Good EXP for the level range, easy to handle solo.</div>
+      </div>
+
+ <!-- LEVEL 65-95 -->
+      <div class="boss-card type-boss" data-type="boss" data-text="masked warrior land under cultivation 60 94">
+        <div class="boss-header">
+          <div class="boss-name">Masked Warrior</div>
+          <div class="lvl-col"><span class="lvl-range-big">60–94</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Normal → Ultimate</span></div>
+        <div class="boss-location">📍 Land Under Cultivation: Hill</div>
+        <div class="boss-tips">Go with party or trust your evasion. Very long viable window. Ultimate at 107-114. Great for guild parties — shout "lfp" at the spot.</div>
+        <div class="boss-exp-note">✦ Best in party — Can lvl up until 112</div>
+      </div>
+
+      <!-- LEVEL 67-78 -->
+      <div class="boss-card type-boss" data-type="boss" data-text="flare volg fiery volcano lava trail nightmare 67 78">
+        <div class="boss-header">
+          <div class="boss-name">Flare Volg</div>
+          <div class="lvl-col"><span class="lvl-range-big">67–99</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">NM → Ultimate</span></div>
+        <div class="boss-location">📍 Fiery Volcano: Lava Trail</div>
+        <div class="boss-tips">Run Nightmare at lv67-87, then Ultimate at lv87-99. One of the most popular mid-game EXP sources. Fire element — bring water gear.</div>
+        <div class="boss-exp-note">✦ Long-running favorite for the guild</div>
+      </div>
+
+      <!-- LEVEL 99-107 -->
+      <div class="boss-card type-mini" data-type="mini" data-text="don yeti polde ice valley mini boss 94 112">
+        <div class="boss-header">
+          <div class="boss-name">Don Yeti</div>
+          <div class="lvl-col"><span class="lvl-range-big">94–112</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
+        <div class="boss-location">📍 Polde Ice Valley</div>
+        <div class="boss-tips">Strong EXP gain, manageable difficulty. Stack some fire/light gear for best results.</div>
+      </div>
+
+       <div class="boss-card type-boss" data-type="boss" data-text="cerberus Spring of Rebirth: Top nightmare 112 126">
+        <div class="boss-header">
+          <div class="boss-name">Cerberus</div>
+          <div class="lvl-col"><span class="lvl-range-big">112–126</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">NM</span></div>
+        <div class="boss-location">📍 Spring of Rebirth: Top</div>
+        <div class="boss-tips">Run Nightmare at lv112-126. One of the most popular mid-game EXP sources. Water Element — bring wind gear.</div>
+        <div class="boss-exp-note">✦ Long-running favorite for the guild</div>
+      </div>
+
+       <div class="boss-card type-mini" data-type="mini" data-text="Lapin the Necromancer Trace of Dark River mini boss 126 130">
+        <div class="boss-header">
+          <div class="boss-name">Lapin the Necromancer</div>
+          <div class="lvl-col"><span class="lvl-range-big">126–130</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
+        <div class="boss-location">📍 Trace of Dark River</div>
+        <div class="boss-tips">Strong EXP gain, manageable difficulty. Save "Lapin's Soul" Material to sell/use.</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="cerberus Spring of Rebirth: Top nightmare 112 126">
+        <div class="boss-header">
+          <div class="boss-name">Cerberus</div>
+          <div class="lvl-col"><span class="lvl-range-big">130–146</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Spring of Rebirth: Top</div>
+        <div class="boss-tips">Run Ultimate at lv130-146. One of the most popular mid-game EXP sources. Water Element — bring wind gear.</div>
+        <div class="boss-exp-note">✦ Long-running favorite for the guild</div>
+      </div>
+
+      <!-- LEVEL 150-156 -->
+      <div class="boss-card type-mini" data-type="mini" data-text="super death mushroom monster forest animal trail 150 156">
+        <div class="boss-header">
+          <div class="boss-name">Super Death Mushroom</div>
+          <div class="lvl-col"><span class="lvl-range-big">146–154</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
+        <div class="boss-location">📍 Monster's Forest: Animal Trail</div>
+        <div class="boss-tips">Quick respawn mini-boss. Save "Death Truffle" Material to sell/use.</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="super death mushroom monster forest animal trail 150 156">
+        <div class="boss-header">
+          <div class="boss-name">Commander Golem</div>
+          <div class="lvl-col"><span class="lvl-range-big">154–161</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
+        <div class="boss-location">📍 Lufenas Mansion: Entrance</div>
+        <div class="boss-tips">Drops "B22C38" Arm dye to sell/use.</div>
+      </div>
+
+      <!-- LEVEL 156-199 -->
+      <div class="boss-card type-boss" data-type="boss" data-text="venena ultimea palace throne hard 154 179">
+        <div class="boss-header">
+          <div class="boss-name">Venena Coenubia</div>
+          <div class="lvl-col"><span class="lvl-range-big">154–198</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Hard → Ultimate</span></div>
+        <div class="boss-location">📍 Ultimea Palace: Throne</div>
+        <div class="boss-tips">Run Hard-Nightmare at 156-179, then Ultimate at 183-199. THE endgame leveling king for a long stretch. Always run in party for best results.</div>
+        <div class="boss-exp-note">✦ Guild party staple — huge EXP per run</div>
+      </div>
+
+      <!-- LEVEL 179-183 -->
+      <div class="boss-card type-mini" data-type="mini" data-text="altoplebas roroko plains 179 183">
+        <div class="boss-header">
+          <div class="boss-name">Altoplebas</div>
+          <div class="lvl-col"><span class="lvl-range-big">179–183</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
+        <div class="boss-location">📍 Rokoko Plains</div>
+        <div class="boss-tips">Alternative between Venena runs. Do MQ story between these levels to also progress content.</div>
+      </div>
+
+      <!-- LEVEL 199-215 -->
+      <div class="boss-card type-boss" data-type="boss" data-text="finstern dark dragon shrine 199 215">
+        <div class="boss-header">
+          <div class="boss-name">Finstern the Dark Dragon</div>
+          <div class="lvl-col"><span class="lvl-range-big">198–210</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Dark Dragon Shrine</div>
+        <div class="boss-tips">High damage boss — come geared. Ultimate only for this level bracket. Light element — equip dark/dark resist gear.</div>
+        <div class="boss-exp-note">✦ Requires solid equipment to farm efficiently</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="kuzto 210 227">
+        <div class="boss-header">
+          <div class="boss-name">Kuzto</div>
+          <div class="lvl-col"><span class="lvl-range-big">210-227</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Labilans Sector: Square</div>
+        <div class="boss-tips">High damage boss — come geared. Ultimate only for this level bracket. Earth Element — equip dte fire/earth resist gear.</div>
+        <div class="boss-exp-note">✦ Requires solid equipment to farm efficiently</div>
+      </div>
+
+      <!-- LEVEL 215-230 -->
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Espectro</div>
+          <div class="lvl-col"><span class="lvl-range-big">215–229</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Arche Valley: Area 1</div>
+        <div class="boss-tips">Late-game powerhouse spot. Party strongly recommended. One of the best EXP sources before cap.</div>
+        <div class="boss-exp-note">✦ Late-game go-to with guild party</div>
+      </div>
+
+      <!-- LEVEL 230-245 Arachnidemon -->
+      <div class="boss-card type-boss" data-type="boss" data-text="arachnidemon arche valley depths ultimate 230 245">
+        <div class="boss-header">
+          <div class="boss-name">Arachnidemon</div>
+          <div class="lvl-col"><span class="lvl-range-big">229–245</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Arche Valley: Depths</div>
+        <div class="boss-tips">Poison mechanic hurts blacksmith tanks — bring antidotes. DPS parties can push fast here. Good xtall drops alongside decent EXP.</div>
+        <div class="boss-exp-note">✦ Finish MQ alongside to hit 245 faster</div>
+      </div>
+
+      <!-- LEVEL 260-280 Ferzen -->
+      <div class="boss-card type-boss" data-type="boss" data-text="ferzen rock dragon guardian forest 260 280">
+        <div class="boss-header">
+          <div class="boss-name">Ferzen the Rock Dragon</div>
+          <div class="lvl-col"><span class="lvl-range-big">245-255</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Guardian Forest</div>
+        <div class="boss-tips">Requires real skill and coordination — not a brain-dead farm. Earth-type attacks. Good loot alongside EXP. Party up for consistent clears.</div>
+        <div class="boss-exp-note">✦ Skill-check boss — coordinate with guild</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Wolkissa</div>
+          <div class="lvl-col"><span class="lvl-range-big">252-265</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Weredragon's Throat</div>
+        <div class="boss-tips">Drops "Holy Script Gun" Weap for Bowgun Tank & Wolkissa Xtall to sell/use.</div>
+        <div class="boss-exp-note">✦ Late-game go-to with guild party</div>
+      </div>
+
+      <!-- LEVEL 275-295 War Dragon Turba -->
+      <div class="boss-card type-boss" data-type="boss" data-text="mimyugon 275 295">
+        <div class="boss-header">
+          <div class="boss-name">Trickster Dragon Mimyugon</div>
+          <div class="lvl-col"><span class="lvl-range-big">255-262</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Nightmare</span></div>
+        <div class="boss-location">📍 Operation Zone: Cockpit Area</div>
+        <div class="boss-tips">Save Material Drops for Blacksmith Leveling. </div>
+        <div class="boss-exp-note">Earth Element Boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Brassozard</div>
+          <div class="lvl-col"><span class="lvl-range-big">262-270</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Operation Zone: Climate Control Area</div>
+        <div class="boss-tips">Drops "Red-Winged Dragon Bow" Weap for Bowgun Farmer</div>
+        <div class="boss-exp-note">Earth Element Boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Exdocus</div>
+          <div class="lvl-col"><span class="lvl-range-big">265-270</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Stairway to Vital Point</div>
+        <div class="boss-tips">Save Material Drops for Blacksmith Leveling.</div>
+        <div class="boss-exp-note">Dark Element Boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Trus</div>
+          <div class="lvl-col"><span class="lvl-range-big">265-277</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Propulsion System Zone: Power Tank</div>
+        <div class="boss-tips">Drops "Trus" Xtall to use/sell</div>
+        <div class="boss-exp-note">Fire Element Boss</div>
+      </div>
+      
+       <div class="boss-card type-boss" data-type="boss" data-text="mimyugon 275 295">
+        <div class="boss-header">
+          <div class="boss-name">Trickster Dragon Mimyugon</div>
+          <div class="lvl-col"><span class="lvl-range-big">270-285</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Operation Zone: Cockpit Area</div>
+        <div class="boss-tips">Save Material Drops for Blacksmith Leveling. </div>
+        <div class="boss-exp-note">Earth Element Boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Capo Profundo</div>
+          <div class="lvl-col"><span class="lvl-range-big">285-295</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Abandoned District: Area 3</div>
+        <div class="boss-tips">Drops "Mace Sword" Weap to use/sell</div>
+        <div class="boss-exp-note">Water Element Boss</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="mimyugon 275 295">
+        <div class="boss-header">
+          <div class="boss-name">Walican</div>
+          <div class="lvl-col"><span class="lvl-range-big">285-295</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Jabali Kubwa: Summit</div>
+        <div class="boss-tips">Save Material Drops for Blacksmith Leveling. </div>
+        <div class="boss-exp-note">Wind Element Boss</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="mimyugon 275 295">
+        <div class="boss-header">
+          <div class="boss-name">Mulgoon</div>
+          <div class="lvl-col"><span class="lvl-range-big">285-295</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Menabra Plains</div>
+        <div class="boss-tips">Run Hard at 285-290, then Nightmare at 290-295. Save Material Drops for Blacksmith Leveling. </div>
+        <div class="boss-exp-note">Dark Element Boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="espectro arche valley 215 229">
+        <div class="boss-header">
+          <div class="boss-name">Meteora</div>
+          <div class="lvl-col"><span class="lvl-range-big">285-295</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Menabra Plains</div>
+        <div class="boss-tips">Drops "Meteor Sword" Weap to use/sell</div>
+        <div class="boss-exp-note">Fire Element Boss</div>
+      </div>
+
+      <!-- LEVEL 290-310 Junior Dragon Zyvio -->
+      <div class="boss-card type-boss" data-type="boss" data-text="junior dragon zyvio storage yard 290 310">
+        <div class="boss-header">
+          <div class="boss-name">Junior Dragon Zyvio</div>
+          <div class="lvl-col"><span class="lvl-range-big">290–310</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Storage Yard</div>
+        <div class="boss-tips">One of the best EXP sources approaching cap. Best EXP bosses at this range may not have great loot — run Coryn leveling tool to confirm current best ratio for your level.</div>
+        <div class="boss-exp-note">✦ Check coryn.club/leveling.php for exact EXP</div>
+      </div>
+
+      <!-- LEVEL 300-320 Cap Push -->
+      <div class="boss-card type-boss" data-type="boss" data-text="cap push 300 320 endgame final bosses overflow">
+        <div class="boss-header">
+          <div class="boss-name">Cap Push (300–320)</div>
+          <div class="lvl-col"><span class="lvl-range-big">300–320</span><div class="boss-level-label">Char Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
+        <div class="boss-location">📍 Latest Chapter Areas (Story-locked)</div>
+        <div class="boss-tips">The final push to Lv.320 cap. Complete all remaining Main Quest chapters for massive EXP bonuses — Ch.9-13 alone can give ~25% of the EXP needed to hit 270+ from 240. Always use the Coryn leveling tool to find the highest-EXP boss within ±5 levels of you.</div>
+        <div class="boss-exp-note">✦ MQ chapters 9-13 = huge EXP — don't skip!</div>
+      </div>
+
+    </div><!-- /boss-grid -->
+
+  
+    <!-- ✏ HOW TO EDIT THIS SECTION -->
+     <!--
+    <div class="edit-guide-card">
+      <h3>✏ How to Add or Edit Character Leveling Spots</h3>
+      <p>Open this HTML file in a text editor (Notepad, VS Code, etc.), then find <code>#boss-grid</code>. Copy any <code>&lt;div class="boss-card ..."&gt;</code> block and paste it inside that grid.</p>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Set <code>data-type</code> to <strong>"boss"</strong>, <strong>"mini"</strong>, or <strong>"mob"</strong> — controls which filter button shows it.</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p>Fill <code>data-text</code> with search keywords: boss name, location name, and level range numbers so the search bar can find it.</p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p>Change the <code>class</code> on the card to match the type: <code>type-boss</code> / <code>type-mini</code> / <code>type-mob</code>.</p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p>Edit the level range numbers in <code>.lvl-range-big</code>, the boss name in <code>.boss-name</code>, and the location in <code>.boss-location</code>.</p></div>
+      <div class="edit-step"><div class="edit-step-num">5</div><p>Write your tip text inside <code>.boss-tips</code>. Optionally add a note line inside <code>.boss-exp-note</code> for extra info.</p></div>
+      <ul style="margin-top:12px;">
+        <li>Chip colors: <strong>chip-boss</strong> (red) · <strong>chip-mini</strong> (orange) · <strong>chip-mob</strong> (blue) · <strong>chip-char</strong> (purple) · <strong>chip-diff</strong> (gold)</li>
+        <li>To remove a card, delete its entire <code>&lt;div class="boss-card"&gt;...&lt;/div&gt;</code> block.</li>
+        <li>Cards appear in the order they are written in the file — put lower-level cards first.</li>
+      </ul>
+    </div>
+  -->
+
+  </div><!-- /panel-leveling -->
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: MQ EXP CALCULATOR              -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-mq" class="panel">
+    <div class="section-head">
+      <h2>Main Quest EXP Calculator</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="coryn-link-bar">
+      <p>Use the <strong>Toram Tools EXP Calculator</strong> to plan how many Main Quest chapters and NPC quests you need to reach your target level. Developed by Insane23, powered by Coryn Club data. Also useful for planning <strong>Adventurer's Diaries</strong> spam.</p>
+      <a href="https://toramtools.github.io/xp.html" target="_blank" rel="noopener" class="btn-link">🔗 Open in New Tab</a>
+    </div>
+
+    <div style="
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    ">
+      <!-- Header bar mimicking a browser chrome -->
+      <div style="
+        background: var(--bg-card2);
+        border-bottom: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      ">
+        <div style="display:flex;gap:6px;">
+          <span style="width:12px;height:12px;border-radius:50%;background:#c94a3a;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#22c55e;display:block;"></span>
+        </div>
+        <span style="flex:1;background:rgba(255,255,255,0.05);border-radius:4px;padding:4px 12px;font-size:12px;color:var(--text-dim);letter-spacing:0.5px;">toramtools.github.io/xp.html</span>
+        <a href="https://toramtools.github.io/xp.html" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;white-space:nowrap;">⤢ Pop out</a>
+      </div>
+      <iframe
+        src="https://toramtools.github.io/xp.html"
+        title="Toram Tools EXP Calculator"
+        style="
+          width: 100%;
+          height: 700px;
+          border: none;
+          display: block;
+          background: #fff;
+        "
+        loading="lazy"
+        allow="same-origin"
+      ></iframe>
+    </div>
+
+    <!-- MQ Tips below the iframe -->
+    <div style="margin-top:24px;">
+      <div class="section-head">
+        <h2>MQ Leveling Strategy</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">⚡</div>
+          <div class="tip-title">Skip Early Bosses with MQ</div>
+          <div class="tip-body">Doing the Main Quest to defeat Finstern can take you from Lv.1 to Lv.75 in minutes — vs hours of early-game boss grinding. Always do MQ first to skip the low-EXP early stretch.</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📖</div>
+          <div class="tip-title">Chapters 9–13 = Gold</div>
+          <div class="tip-body">Completing MQ chapters 9, 10, 11, and 12 gives roughly 25% of the EXP needed to go from Lv.240 to Lv.270. The final quest alone gives 112,000,000 EXP. Preserve these on alt characters!</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🔄</div>
+          <div class="tip-title">Start from Latest</div>
+          <div class="tip-body">After clearing Chapter 8 (Finstern), create new characters and select <strong>"Start from Latest"</strong> to skip straight to Chapter 9 and preserve all the big EXP chapters for them too.</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📅</div>
+          <div class="tip-title">Adventurer's Diaries</div>
+          <div class="tip-body">These repeatable quest items give great EXP. The calculator on this tab lets you calculate how many diary runs you need alongside MQ. Use them to bridge EXP gaps between boss brackets.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: PET LEVELING                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-pet" class="panel">
+    <div class="section-head">
+      <h2>Pet Leveling Spots</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="coryn-link-bar">
+      <p><strong>Key rule:</strong> Pets earn EXP from boss kills only — not quests. Never let your pet die during a fight or it gets <strong>zero EXP</strong> for that run. Boss Easy mode is safest. Use EXP books to double gains.</p>
+      <a href="https://coryn.club/leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Coryn Leveling Tool</a>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" class="search-input" id="pet-search" placeholder="Search boss or location…" oninput="filterCards('pet-search','pet-grid','boss-card')">
+      <button class="filter-btn active" onclick="filterType(this,'all','pet-grid')">All</button>
+      <button class="filter-btn" onclick="filterType(this,'boss','pet-grid')">Boss</button>
+      <button class="filter-btn" onclick="filterType(this,'mini','pet-grid')">Mini-Boss</button>
+    </div>
+
+    <div class="boss-grid" id="pet-grid">
+
+      <div class="boss-card type-boss" data-type="boss" data-text="gespengst sofya sewers pet early low level">
+        <div class="boss-header">
+          <div class="boss-name">Gespengst</div>
+          <div class="lvl-col"><span class="lvl-range-big">1–40</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy → Normal</span></div>
+        <div class="boss-location">📍 Sofya City: Sewers</div>
+        <div class="boss-tips">Use Easy mode to keep your pet safe. The boss is weak enough that pets survive. Fast respawn between runs.</div>
+        <div class="boss-exp-note">✦ Safest early pet leveling boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="metal stinger akaku desert pet mid level mini boss">
+        <div class="boss-header">
+          <div class="boss-name">Metal Stinger</div>
+          <div class="lvl-col"><span class="lvl-range-big">40–90</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
+        <div class="boss-location">📍 Akaku Desert: Area 1</div>
+        <div class="boss-tips">High EXP mini-boss. Good for mid-level pets. Keep your pet healed — mini-bosses hit harder than normal mobs. Use Revita potions.</div>
+        <div class="boss-exp-note">✦ Community favorite for pet grinding</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="lapin necromancer trace dark river mini boss pet">
+        <div class="boss-header">
+          <div class="boss-name">Lapin the Necromancer</div>
+          <div class="lvl-col"><span class="lvl-range-big">60–110</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
+        <div class="boss-location">📍 Trace of Dark River</div>
+        <div class="boss-tips">Excellent pet EXP. Harder than Metal Stinger — bring a strong character. One of the highest pet EXP mini-bosses in this bracket.</div>
+        <div class="boss-exp-note">✦ High-risk, high-reward pet spot</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="flare volg fiery volcano pet easy nightmare">
+        <div class="boss-header">
+          <div class="boss-name">Flare Volg</div>
+          <div class="lvl-col"><span class="lvl-range-big">70–100</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy</span></div>
+        <div class="boss-location">📍 Fiery Volcano: Lava Trail</div>
+        <div class="boss-tips">Easy mode keeps pets alive. Good EXP with low survival risk. Double up character leveling here.</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="venena ultimea palace pet high level ultimate">
+        <div class="boss-header">
+          <div class="boss-name">Venena Metacoenubia</div>
+          <div class="lvl-col"><span class="lvl-range-big">130–200</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy → Hard</span></div>
+        <div class="boss-location">📍 Ultimea Palace: Throne</div>
+        <div class="boss-tips">High EXP for high-level pets. Run Easy/Hard to keep pets alive. This boss has powerful AoE — position carefully.</div>
+        <div class="boss-exp-note">✦ Best high-level pet spot overall</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="any boss easy mode pet safe general tip">
+        <div class="boss-header">
+          <div class="boss-name">Any Boss — Easy Mode</div>
+          <div class="lvl-col"><span class="lvl-range-big">All</span><div class="boss-level-label">Pet Levels</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy</span></div>
+        <div class="boss-location">📍 Any boss map</div>
+        <div class="boss-tips">The universal rule: fight bosses at Easy difficulty for safe pet leveling. Pets can't dodge most boss attacks, so lower difficulty = more runs with less healing cost.</div>
+        <div class="boss-exp-note">✦ Stack EXP Books for double gains</div>
+      </div>
+
+    </div>
+
+    <!-- ✏ HOW TO EDIT THIS SECTION -->
+    <div class="edit-guide-card">
+      <h3>✏ How to Add or Edit Pet Leveling Spots</h3>
+      <p>Find <code>#pet-grid</code> in this file. Copy any <code>&lt;div class="boss-card ..."&gt;</code> block inside it and paste it to add a new entry.</p>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Set <code>data-type</code> to <strong>"boss"</strong> or <strong>"mini"</strong> to match the filter buttons on this tab.</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p>Fill <code>data-text</code> with search keywords — always include the word "pet" so the search bar finds this card when typing "pet".</p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p>Set the label inside <code>.boss-level-label</code> to <strong>"Pet Level"</strong> so readers know the range refers to the pet, not the character.</p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p>Add the <code>chip-pet</code> chip badge in <code>.boss-meta</code> so it's clearly marked as a pet leveling card.</p></div>
+      <div class="edit-step"><div class="edit-step-num">5</div><p>In <code>.boss-tips</code>, always state the recommended difficulty and whether pets survive safely. Mention EXP Books if relevant.</p></div>
+      <ul style="margin-top:12px;">
+        <li><strong>Golden rule:</strong> Pets get 0 EXP if they die — always recommend Easy mode unless the spot is known safe.</li>
+        <li>To remove a card, delete the entire <code>&lt;div class="boss-card"&gt;...&lt;/div&gt;</code> block.</li>
+        <li>Cards show in the order they appear in the file — put lower-level pet spots first.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: GUILD RAIDS (YouTube)           -->
+  <!--                                         -->
+  <!-- HOW TO ADD A VIDEO:                     -->
+  <!-- Copy a .raid-video-card block and paste -->
+  <!-- inside #raid-video-grid.                -->
+  <!-- Replace VIDEO_ID in the iframe src with -->
+  <!-- the ID from your YouTube URL:           -->
+  <!-- youtube.com/watch?v=VIDEO_ID            -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-raids" class="panel">
+    <div class="section-head">
+      <h2>Guild Raid Videos</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="raid-channel-bar">
+      <p>Watch our guild's raid and boss runs on our official YouTube channel. Subscribe to stay updated on new uploads!</p>
+      <!-- EDIT: Replace the href below with your actual YouTube channel URL -->
+      <a href="https://www.youtube.com/@YourGuildChannel" target="_blank" rel="noopener" class="btn-yt">▶ Visit Our Channel</a>
+    </div>
+
+    <div class="raid-video-grid" id="raid-video-grid">
+
+      <!--
+      ══════════════════════════════════════════════════════
+      HOW TO ADD A VIDEO — copy this block and edit it:
+
+      <div class="raid-video-card">
+        <iframe class="raid-video-embed"
+          src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+          title="Video Title Here"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <div class="raid-video-info">
+          <div class="raid-video-title">Boss Name — Difficulty Run</div>
+          <div class="raid-video-meta">📅 Month Year &nbsp;·&nbsp; 👤 Uploaded by GM/VGM Name</div>
+        </div>
+      </div>
+
+      To get VIDEO_ID: go to your YouTube video, copy the part after "?v=" in the URL.
+      Example: youtube.com/watch?v=dQw4w9WgXcQ → VIDEO_ID = dQw4w9WgXcQ
+      ══════════════════════════════════════════════════════
+      -->
+
+      <!-- PLACEHOLDER VIDEO 1 — replace with your real video -->
+      <div class="raid-video-card">
+        <iframe class="raid-video-embed"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Guild Raid Video 1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <div class="raid-video-info">
+          <div class="raid-video-title">— Add your first raid video here —</div>
+          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER VIDEO 2 — replace with your real video -->
+      <div class="raid-video-card">
+        <iframe class="raid-video-embed"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Guild Raid Video 2"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <div class="raid-video-info">
+          <div class="raid-video-title">— Add your second raid video here —</div>
+          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER VIDEO 3 — replace with your real video -->
+      <div class="raid-video-card">
+        <iframe class="raid-video-embed"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Guild Raid Video 3"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <div class="raid-video-info">
+          <div class="raid-video-title">— Add your third raid video here —</div>
+          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+        </div>
+      </div>
+
+    </div><!-- /raid-video-grid -->
+
+    <div class="edit-guide-card" style="margin-top:32px;">
+      <h3>✏ How to Add Raid Videos</h3>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Go to the YouTube video you want to embed. Copy the part after <code>?v=</code> in the URL — that is your <strong>Video ID</strong>.</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p>In this file find <code>#raid-video-grid</code>. Copy an existing <code>.raid-video-card</code> block and paste it inside the grid.</p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p>Replace <code>dQw4w9WgXcQ</code> in the <code>iframe src</code> with your Video ID. Also update the <code>title</code> attribute to match the video.</p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p>Edit the <code>.raid-video-title</code> text (boss name / difficulty) and the <code>.raid-video-meta</code> text (date and uploader name).</p></div>
+      <div class="edit-step"><div class="edit-step-num">5</div><p>Update the channel link at the top: find <code>href="https://www.youtube.com/@YourGuildChannel"</code> and replace it with your actual channel URL.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: MEMBERS (GM / VGM / Members)   -->
+  <!--                                         -->
+  <!-- HOW TO ADD A MEMBER:                    -->
+  <!-- Copy a .member-card block and paste     -->
+  <!-- inside #member-grid. Set data-role to   -->
+  <!-- "gm", "vgm", or "member".              -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-members" class="panel">
+    <div class="section-head">
+      <h2>Guild Members</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="member-filter-bar">
+      <button class="filter-btn active" onclick="filterMembers(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterMembers(this,'gm')">⭐ Guild Master</button>
+      <button class="filter-btn" onclick="filterMembers(this,'vgm')">🔷 Vice GM</button>
+      <button class="filter-btn" onclick="filterMembers(this,'member')">👤 Members</button>
+    </div>
+
+    <div class="member-grid" id="member-grid">
+
+      <!--
+      ══════════════════════════════════════════════════════
+      HOW TO ADD A MEMBER — copy this block and edit it:
+
+      <div class="member-card" data-role="member">
+        <div class="member-avatar">⚔</div>
+        <div class="member-name">InGameName</div>
+        <span class="member-role-badge badge-mem">Member</span>
+        <div class="member-info">
+          <strong>Build:</strong> Mage / Warrior / etc.<br>
+          <strong>Joined:</strong> Month Year<br>
+          Note about the player (optional)
+        </div>
+      </div>
+
+      For GM: data-role="gm" and badge class="badge-gm", label "Guild Master"
+      For VGM: data-role="vgm" and badge class="badge-vgm", label "Vice GM"
+      For avatar emoji: change the emoji inside .member-avatar
+      For avatar image: replace emoji with <img src="path/to/img.png" alt="name">
+      ══════════════════════════════════════════════════════
+      -->
+
+      <!-- ── GUILD MASTER ── -->
+      <div class="member-card" data-role="gm">
+        <div class="member-avatar">⭐</div>
+        <div class="member-name">— GM Name Here —</div>
+        <span class="member-role-badge badge-gm">Guild Master</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace this with your GM's in-game name and details.
+        </div>
+      </div>
+
+      <!-- ── VICE GUILD MASTER 1 ── -->
+      <div class="member-card" data-role="vgm">
+        <div class="member-avatar">🔷</div>
+        <div class="member-name">— VGM Name Here —</div>
+        <span class="member-role-badge badge-vgm">Vice GM</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace this with your first VGM's in-game name and details.
+        </div>
+      </div>
+
+      <!-- ── VICE GUILD MASTER 2 ── -->
+      <div class="member-card" data-role="vgm">
+        <div class="member-avatar">🔷</div>
+        <div class="member-name">— VGM Name Here —</div>
+        <span class="member-role-badge badge-vgm">Vice GM</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace this with your second VGM's in-game name and details.
+        </div>
+      </div>
+
+      <!-- ── MEMBER ── -->
+      <div class="member-card" data-role="member">
+        <div class="member-avatar">⚔</div>
+        <div class="member-name">— Member Name —</div>
+        <span class="member-role-badge badge-mem">Member</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace with member details.
+        </div>
+      </div>
+
+      <!-- ── MEMBER ── -->
+      <div class="member-card" data-role="member">
+        <div class="member-avatar">🏹</div>
+        <div class="member-name">— Member Name —</div>
+        <span class="member-role-badge badge-mem">Member</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace with member details.
+        </div>
+      </div>
+
+      <!-- ── MEMBER ── -->
+      <div class="member-card" data-role="member">
+        <div class="member-avatar">🔮</div>
+        <div class="member-name">— Member Name —</div>
+        <span class="member-role-badge badge-mem">Member</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Replace with member details.
+        </div>
+      </div>
+
+    </div><!-- /member-grid -->
+
+    <div class="edit-guide-card" style="margin-top:32px;">
+      <h3>✏ How to Add or Edit Members</h3>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Find <code>#member-grid</code> in this file. Copy any <code>.member-card</code> block and paste it inside that grid.</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p>Set <code>data-role</code> to <strong>"gm"</strong>, <strong>"vgm"</strong>, or <strong>"member"</strong> — this controls which filter button shows the card and the top accent color.</p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p>Change the emoji inside <code>.member-avatar</code>. To use a screenshot instead, replace the emoji with: <code>&lt;img src="yourimage.png" alt="name"&gt;</code></p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p>Set the badge class: <code>badge-gm</code> (gold) for GM · <code>badge-vgm</code> (purple) for Vice GM · <code>badge-mem</code> (blue) for regular members.</p></div>
+      <div class="edit-step"><div class="edit-step-num">5</div><p>Fill in <code>.member-name</code> with the in-game name, and the <code>.member-info</code> with build, join date, and any notes.</p></div>
+      <ul style="margin-top:12px;">
+        <li>To remove a member, delete their entire <code>&lt;div class="member-card"&gt;...&lt;/div&gt;</code> block.</li>
+        <li>Keep GM and VGM cards at the top of the grid so they appear first.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: GUILD GALLERY                  -->
+  <!--                                         -->
+  <!-- HOW TO ADD A PHOTO:                     -->
+  <!-- Copy a .gallery-card block inside       -->
+  <!-- #gallery-grid. Set img src to your      -->
+  <!-- screenshot URL or file path.            -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-gallery" class="panel">
+    <div class="section-head">
+      <h2>Guild Gallery</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="coryn-link-bar">
+      <p>Screenshots, boss kills, and guild memories. Click any image to view it full-size.</p>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+
+      <!--
+      ══════════════════════════════════════════════════════
+      HOW TO ADD A PHOTO — copy this block and edit it:
+
+      <div class="gallery-card" onclick="openLightbox(this)">
+        <div class="gallery-img-wrap">
+          <img src="YOUR_IMAGE_URL_OR_PATH_HERE" alt="Description">
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">Event or Boss Name</div>
+          <div class="gallery-caption-meta">📅 Month Year &nbsp;·&nbsp; 📸 Screenshot by Name</div>
+        </div>
+      </div>
+
+      For local files: src="screenshots/myboss.png" (put file in same folder as this HTML)
+      For online images: src="https://i.imgur.com/example.png"
+      ══════════════════════════════════════════════════════
+      -->
+
+      <!-- PLACEHOLDER 1 -->
+      <div class="gallery-card" onclick="openLightbox(this)">
+        <div class="gallery-img-wrap">📸</div>
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">— Add a screenshot here —</div>
+          <div class="gallery-caption-meta">Replace the 📸 emoji with an &lt;img&gt; tag pointing to your image file</div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 2 -->
+      <div class="gallery-card" onclick="openLightbox(this)">
+        <div class="gallery-img-wrap">🏆</div>
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">— Add a guild achievement here —</div>
+          <div class="gallery-caption-meta">Boss kill · 📅 Date &nbsp;·&nbsp; 📸 Photographer</div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 3 -->
+      <div class="gallery-card" onclick="openLightbox(this)">
+        <div class="gallery-img-wrap">⚔</div>
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">— Add a raid screenshot here —</div>
+          <div class="gallery-caption-meta">Guild raid · 📅 Date</div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER 4 -->
+      <div class="gallery-card" onclick="openLightbox(this)">
+        <div class="gallery-img-wrap">🎉</div>
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">— Add a guild event photo here —</div>
+          <div class="gallery-caption-meta">Guild event · 📅 Date</div>
+        </div>
+      </div>
+
+    </div><!-- /gallery-grid -->
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <div class="edit-guide-card" style="margin-top:32px;">
+      <h3>✏ How to Add Gallery Photos</h3>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Find <code>#gallery-grid</code> in this file. Copy any <code>.gallery-card</code> block and paste it inside the grid.</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p>Replace the emoji in <code>.gallery-img-wrap</code> with an image tag: <code>&lt;img src="your-image.png" alt="description"&gt;</code></p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p>For local files, save the screenshot in the same folder as this HTML file and use just the filename as src. For online images, paste the full URL.</p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p>Edit <code>.gallery-caption-title</code> with the event/boss name and <code>.gallery-caption-meta</code> with the date and screenshot credit.</p></div>
+      <ul style="margin-top:12px;">
+        <li>Images are automatically displayed 16:9 ratio — landscape screenshots look best.</li>
+        <li>Clicking a real image card opens it fullscreen. Placeholder emoji cards will not open a lightbox.</li>
+        <li>To remove a photo, delete the entire <code>&lt;div class="gallery-card"&gt;...&lt;/div&gt;</code> block.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- PANEL: FOOD BUFFS (Land Food / Address Code style)           -->
+  <!--                                                               -->
+  <!-- HOW TO ADD A ROW:                                             -->
+  <!--   Copy any <tr> inside #food-tbody and paste below it.       -->
+  <!--   Fields to fill in:                                          -->
+  <!--     data-cat  : atk | matk | hp | def | crit | util | exp    -->
+  <!--     data-text : search keywords (stat name, code, buff name)  -->
+  <!--     [1] Food Name                                             -->
+  <!--     [2] Stat / Effect (what the buff does at max lv)         -->
+  <!--     [3] Buff Code (the address code players share in-game)    -->
+  <!--     [4] Type tag  e.g. chip-atk / chip-matk / chip-hp etc.   -->
+  <!--     [5] Notes (optional — how to get, tips, etc.)             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div id="panel-food" class="panel">
+    <div class="section-head">
+      <h2>Land Food Buff Codes</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Info bar -->
+    <div class="coryn-link-bar">
+      <p>
+        Land food buffs are cooked in <strong>Your Land</strong>. You can hold up to
+        <strong>4 buff effects</strong> simultaneously. Each recipe reaches max
+        <strong>Level 10</strong> — effects grow stronger as you cook it more.
+        Buffs last <strong>12 hours</strong>. The <strong>Buff Code</strong>
+        is the address code you share with guildmates so they can cook the same dish in their own land.
+      </p>
+    </div>
+
+    <!-- XP Requirement reference card -->
+    <div style="
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+    ">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Food Buff Level XP Requirements</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="xp-lv" style="--c:#5a6090">Lv1 · 1 XP</span>
+        <span class="xp-lv" style="--c:#5a6090">Lv2 · 3 XP</span>
+        <span class="xp-lv" style="--c:#5a6090">Lv3 · 9 XP</span>
+        <span class="xp-lv" style="--c:#5a6090">Lv4 · 21 XP</span>
+        <span class="xp-lv" style="--c:#5a6090">Lv5 · 45 XP</span>
+        <span class="xp-lv" style="--c:var(--gold-dim)">Lv6 · 93 XP</span>
+        <span class="xp-lv" style="--c:var(--gold-dim)">Lv7 · 189 XP</span>
+        <span class="xp-lv" style="--c:var(--gold-dim)">Lv8 · 381 XP</span>
+        <span class="xp-lv" style="--c:#b87a30">Lv9 · 765 XP</span>
+        <span class="xp-lv" style="--c:#c9a84c;font-weight:700">Lv10 · 1533 XP ★ MAX</span>
+      </div>
+    </div>
+
+    <!-- Search & filter -->
+    <div class="search-bar">
+      <input type="text" class="search-input" id="food-search" placeholder="Search buff name, stat, or code…" oninput="filterTable('food-search','food-tbody','food-cat')">
+      <select class="filter-select" id="food-cat" onchange="filterTable('food-search','food-tbody','food-cat')">
+        <option value="all">All Types</option>
+        <option value="atk">ATK</option>
+        <option value="matk">MATK</option>
+        <option value="hp">Max HP</option>
+        <option value="def">DEF / Resist</option>
+        <option value="crit">CRIT</option>
+        <option value="util">Utility (HIT / FLEE / AMPR…)</option>
+        <option value="exp">EXP Gain</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div style="overflow-x:auto;">
+      <table class="consoom-table" id="food-table">
+        <thead>
+          <tr>
+            <th>Food Name</th>
+            <th>Stat / Effect <span style="font-weight:400;color:var(--text-dim)">(at max lv)</span></th>
+            <th style="white-space:nowrap">Buff Code</th>
+            <th>Type</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="food-tbody">
+          <!--
+          ════════════════════════════════════════════════════════
+          HOW TO ADD A ROW — copy this template:
+
+          <tr data-cat="atk" data-text="food name stat code keywords">
+            <td class="item-name">Food Name Here</td>
+            <td class="effect-atk">ATK +X & +Y%</td>
+            <td><code class="buff-code">XXXXXXX</code></td>
+            <td><span class="chip chip-atk" style="font-size:11px;">ATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Optional notes</td>
+          </tr>
+
+          Available effect classes: effect-atk  effect-matk  effect-hp  effect-util  effect-exp
+          Available chip classes:   chip-atk    chip-matk    chip-hp    chip-def     chip-crit   chip-util  chip-exp
+          ════════════════════════════════════════════════════════
+          -->
+
+          <!-- ── ATK FOODS ── -->
+          <tr data-cat="atk" data-text="atk attack food buff physical">
+            <td class="item-name">— ATK Food Name —</td>
+            <td class="effect-atk">ATK +? &amp; +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-atk" style="font-size:11px;">ATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+          <tr data-cat="atk" data-text="atk attack food buff physical 2">
+            <td class="item-name">— ATK Food Name —</td>
+            <td class="effect-atk">ATK +? &amp; +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-atk" style="font-size:11px;">ATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Add a second ATK food if your guild uses one</td>
+          </tr>
+
+          <!-- ── MATK FOODS ── -->
+          <tr data-cat="matk" data-text="matk magic attack food buff mage caster">
+            <td class="item-name">— MATK Food Name —</td>
+            <td class="effect-matk">MATK +? &amp; +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-matk" style="font-size:11px;">MATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+          <tr data-cat="matk" data-text="matk magic attack food buff mage caster 2">
+            <td class="item-name">— MATK Food Name —</td>
+            <td class="effect-matk">MATK +? &amp; +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-matk" style="font-size:11px;">MATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Add a second MATK food if your guild uses one</td>
+          </tr>
+
+          <!-- ── HP FOODS ── -->
+          <tr data-cat="hp" data-text="hp max health food buff tank survive">
+            <td class="item-name">— HP Food Name —</td>
+            <td class="effect-hp">Max HP +?</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-hp" style="font-size:11px;">Max HP</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+
+          <!-- ── DEF / RESIST FOODS ── -->
+          <tr data-cat="def" data-text="def defense resist reduction food buff tank">
+            <td class="item-name">— DEF/Resist Food Name —</td>
+            <td class="effect-util">DEF +? or Resist +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-def" style="font-size:11px;">DEF</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+
+          <!-- ── CRIT FOODS ── -->
+          <tr data-cat="crit" data-text="crit critical rate food buff damage">
+            <td class="item-name">— CRIT Food Name —</td>
+            <td class="effect-util">CRIT Rate +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-crit" style="font-size:11px;">CRIT</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+
+          <!-- ── UTILITY FOODS ── -->
+          <tr data-cat="util" data-text="utility hit accuracy flee evade ampr food buff">
+            <td class="item-name">— Utility Food Name —</td>
+            <td class="effect-util">HIT +? / FLEE +? / AMPR +?</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-util" style="font-size:11px;">Utility</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+          <tr data-cat="util" data-text="utility hit accuracy flee evade ampr food buff 2">
+            <td class="item-name">— Utility Food Name —</td>
+            <td class="effect-util">HIT +? / FLEE +? / AMPR +?</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-util" style="font-size:11px;">Utility</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Add a second utility food if applicable</td>
+          </tr>
+
+          <!-- ── EXP FOODS ── -->
+          <tr data-cat="exp" data-text="exp experience gain food buff leveling">
+            <td class="item-name">— EXP Food Name —</td>
+            <td class="effect-exp">EXP Gain +?%</td>
+            <td><code class="buff-code buff-code--empty">???????</code></td>
+            <td><span class="chip chip-exp" style="font-size:11px;">EXP</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- How-to note -->
+    <div style="
+      margin-top: 20px;
+      background: rgba(201,168,76,0.05);
+      border: 1px dashed var(--gold-dim);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-dim);
+    ">
+      <strong style="color:var(--gold-light);">✏ How to fill in your buff codes:</strong><br>
+      1. Find the buff code of your food in-game (check <strong style="color:var(--text)">Your Land → Cook → share code</strong>), or get it from a guildmate who already cooked that dish.<br>
+      2. Open this HTML file in a text editor, find <code style="color:#7ab3f0">#food-tbody</code>, and locate the correct category row (ATK, MATK, HP, etc.).<br>
+      3. Replace <code style="color:#7ab3f0">???????</code> with the real buff code inside <code style="color:#7ab3f0">&lt;code class="buff-code"&gt;</code>, and remove the <code style="color:#7ab3f0">buff-code--empty</code> class so it shows in gold.<br>
+      4. Fill in the food name, the stat effect at max level (Lv10), and any notes (how to obtain, tips, etc.).<br>
+      5. To add a brand-new row, copy any existing <code style="color:#7ab3f0">&lt;tr&gt;</code> block and paste it inside <code style="color:#7ab3f0">#food-tbody</code>. Change <code style="color:#7ab3f0">data-cat</code> to the correct type.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: CONSUMABLES                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-consumables" class="panel">
+    <div class="section-head">
+      <h2>Consumables Reference</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="coryn-link-bar">
+      <p>Consumables are one-use items for survival and combat support. Made via <strong>Alchemy skill</strong> or dropped by monsters. You can also get them from Potum Darts, quests, and events.</p>
+      <a href="https://coryn.club" target="_blank" rel="noopener" class="btn-link">🔗 Search Items on Coryn</a>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" class="search-input" id="cons-search" placeholder="Search consumable…" oninput="filterTable('cons-search','cons-tbody','cons-cat')">
+      <select class="filter-select" id="cons-cat" onchange="filterTable('cons-search','cons-tbody')">
+        <option value="all">All Categories</option>
+        <option value="healing">Healing</option>
+        <option value="attack">Attack Boost</option>
+        <option value="magic">Magic Boost</option>
+        <option value="defense">Defense / Resist</option>
+        <option value="utility">Utility</option>
+      </select>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="consoom-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Effect</th>
+            <th>Duration</th>
+            <th>Category</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody id="cons-tbody">
+          <!-- HEALING -->
+          <tr data-cat="healing" data-text="revita potion hp heal recovery alchemy">
+            <td class="item-name">Revita I / II / III</td>
+            <td class="effect-hp">Restores HP (Low → Medium → High)</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Alchemy / Shops</td>
+          </tr>
+          <tr data-cat="healing" data-text="star revita hp heal recovery high">
+            <td class="item-name">Star Revita</td>
+            <td class="effect-hp">Restores HP — higher than Revita III</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Alchemy (high level)</td>
+          </tr>
+          <tr data-cat="healing" data-text="medicine potion mp recover magic">
+            <td class="item-name">Medicine I / II</td>
+            <td class="effect-hp">Restores MP</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Alchemy / Shops</td>
+          </tr>
+          <tr data-cat="healing" data-text="egg mp recovery 50">
+            <td class="item-name">Egg</td>
+            <td class="effect-hp">Recovers 50 MP</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Pojo (Manor Clearing Ground)</td>
+          </tr>
+          <tr data-cat="healing" data-text="sweet potato hp 350 recovery heal">
+            <td class="item-name">Sweet Potato</td>
+            <td class="effect-hp">Recovers 350 HP</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Snow Little Boa (Forde Ice Valley)</td>
+          </tr>
+          <tr data-cat="healing" data-text="potato hp 50 recover heal">
+            <td class="item-name">Potato</td>
+            <td class="effect-hp">Recovers 50 HP</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Hedera (Temple of the Dark Dragon)</td>
+          </tr>
+          <tr data-cat="healing" data-text="clean water hp mp 30 both heal">
+            <td class="item-name">Clean Water</td>
+            <td class="effect-hp">Recovers HP and MP by 30</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td>Fra Pen (Spring of Past Life)</td>
+          </tr>
+          <!-- ATTACK -->
+          <tr data-cat="attack" data-text="hot mushroom atk 10 1% attack power">
+            <td class="item-name">Hot Mushroom</td>
+            <td class="effect-atk">ATK +10 & +1%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Farmable / Cooking</td>
+          </tr>
+          <tr data-cat="attack" data-text="doping extract atk 20 2% attack power boost">
+            <td class="item-name">Doping Extract</td>
+            <td class="effect-atk">ATK +20 & +2%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Monster Drop / Market</td>
+          </tr>
+          <tr data-cat="attack" data-text="massive oil atk 30 3% oil attack strength">
+            <td class="item-name">Massive Oil</td>
+            <td class="effect-atk">ATK +30 & +3%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Monster Drop / Craft</td>
+          </tr>
+          <tr data-cat="attack" data-text="powerful candy atk 40 4% attack sweet">
+            <td class="item-name">Powerful Candy</td>
+            <td class="effect-atk">ATK +40 & +4%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Monster Drop</td>
+          </tr>
+          <tr data-cat="attack" data-text="slash oil atk 100 5% sword blade sharp attack">
+            <td class="item-name">Slash Oil</td>
+            <td class="effect-atk">ATK +100 & +5% (ends after 1 hit)</td>
+            <td>30 min / 1 hit</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Craft / Market</td>
+          </tr>
+          <tr data-cat="attack" data-text="citrus proofru atk 5 5% 60 seconds jelly">
+            <td class="item-name">Citrus Proofru</td>
+            <td class="effect-atk">ATK +5 & +5% for 60 seconds</td>
+            <td>60 sec</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
+            <td>Orange Jelly (Magical Waste Treatment)</td>
+          </tr>
+          <!-- MAGIC -->
+          <tr data-cat="magic" data-text="trave gummi matk 10 1% magic attack">
+            <td class="item-name">Trave Gummi</td>
+            <td class="effect-matk">MATK +10 & +1%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
+            <td>Farmable / Cooking</td>
+          </tr>
+          <tr data-cat="magic" data-text="magical juniper matk 20 2% magic attack incense">
+            <td class="item-name">Magical Juniper</td>
+            <td class="effect-matk">MATK +20 & +2%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
+            <td>Cooking Recipe</td>
+          </tr>
+          <tr data-cat="magic" data-text="monster jar matk 40 4% magic drink">
+            <td class="item-name">Monster Jar</td>
+            <td class="effect-matk">MATK +40 & +4%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
+            <td>Monster Drop / Craft</td>
+          </tr>
+          <!-- DEFENSE -->
+          <tr data-cat="defense" data-text="element drink resist fire water earth wind dark light">
+            <td class="item-name">Elemental Drinks<br><small style="color:var(--text-dim)">(Fire/Water/Earth/Wind/Dark/Light)</small></td>
+            <td class="effect-util">+Elemental Resistance (varies by type)</td>
+            <td>30 min</td>
+            <td><span class="chip chip-diff" style="font-size:11px;">Defense</span></td>
+            <td>Craft / Market — use vs element bosses</td>
+          </tr>
+          <tr data-cat="defense" data-text="mokkapparat coconut jelly defense resist buff popular">
+            <td class="item-name">Mokkapparat Coconut Jelly</td>
+            <td class="effect-util">DEF buff — community recommended resistance food</td>
+            <td>30 min</td>
+            <td><span class="chip chip-diff" style="font-size:11px;">Defense</span></td>
+            <td>Cooking / Drop</td>
+          </tr>
+          <!-- UTILITY -->
+          <tr data-cat="utility" data-text="green jelly cspd cast speed 150 5% matk">
+            <td class="item-name">Green Gelatin</td>
+            <td class="effect-util">CSPD +150 & +5% for 1 minute</td>
+            <td>1 min</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
+            <td>Green Jelly (Zokcda Ruins)</td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">EXP Book</td>
+            <td class="effect-exp">+100% EXP from kills (character & pet)</td>
+            <td>30–60 min</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
+            <td>Events / Orb Shop / Guild Buffs</td>
+          </tr>
+          <tr data-cat="utility" data-text="pataririo accuracy hit 20 dex bow gun eye drop">
+            <td class="item-name">Pataririo</td>
+            <td class="effect-util">Accuracy +20</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
+            <td>Farmable / Cooking</td>
+          </tr>
+          <tr data-cat="utility" data-text="messenger ring accuracy 60 hit dex bow gun">
+            <td class="item-name">Messenger's Ring</td>
+            <td class="effect-util">Accuracy +60</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
+            <td>Monster Drop</td>
+          </tr>
+          <tr data-cat="utility" data-text="forbidden tree fruit hp mp 300 recovery boss">
+            <td class="item-name">Forbidden Tree Fruit</td>
+            <td class="effect-util">HP -99% but MP +300 — risky MP recovery</td>
+            <td>Instant</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
+            <td>Highlands (Temple of Gods)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PANEL: GUILD TIPS                     -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="panel-tips" class="panel">
+    <div class="section-head">
+      <h2>Guild Tips & Best Practices</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="tips-grid">
+
+      <div class="tip-card">
+        <div class="tip-icon">🍽</div>
+        <div class="tip-title">Optimal Buff Stack</div>
+        <div class="tip-body">
+          You can hold <strong>4 food buff effects</strong> simultaneously. For bossing, aim for:
+          <ul>
+            <li>ATK or MATK food (matched to your build)</li>
+            <li>Elemental drink matching boss weakness</li>
+            <li>HP food (Roasted Lamb for tanks)</li>
+            <li>EXP Book if leveling</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">🐾</div>
+        <div class="tip-title">Pet Leveling Rules</div>
+        <div class="tip-body">
+          <ul>
+            <li>Pets get 0 EXP if they die — keep them alive!</li>
+            <li>Use Easy mode boss for safe pet grinding</li>
+            <li>EXP Books apply to pets too — use them</li>
+            <li>Pets can't benefit from quest EXP, only kills</li>
+            <li>Stack pet on top of character leveling to double efficiency</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">👥</div>
+        <div class="tip-title">Party vs Solo</div>
+        <div class="tip-body">
+          Full 4-player parties give a <strong>drop rate boost</strong> that mercenaries and pets don't. For bossing EXP runs, always shout "lfp" (looking for party) in shout chat at your leveling spot. Guild parties = best EXP/hour.
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">🔒</div>
+        <div class="tip-title">Story Lock Bosses</div>
+        <div class="tip-body">
+          Many bosses are story-locked — if a boss isn't spawning at a location, you need to progress the Main Quest first. Complete MQ chapters to unlock high-EXP spots like Venena, Finstern, and Espectro.
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">⚗</div>
+        <div class="tip-title">Alchemy for Consumables</div>
+        <div class="tip-body">
+          Level the <strong>Alchemy skill</strong> to craft your own Revita, Medicine, and attack consumables. This saves spina long-term. Craft in bulk before boss runs so you never run out mid-fight.
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">🏠</div>
+        <div class="tip-title">Cooking System (Your Land)</div>
+        <div class="tip-body">
+          Cooked food lasts <strong>12 hours</strong> and is stronger than dropped food buffs. With a <strong>Refrigerator</strong>, you can pre-cook a second dish. The same recipe levels up over time — max level 10 gives much better stats. Always cook before long grind sessions.
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">💰</div>
+        <div class="tip-title">Spina from Grinding</div>
+        <div class="tip-body">
+          Save valuable drops like Minotaur Skins and boss materials — sell on the Consignment Board. Early to mid-game drops often sell well. Never vendor unique boss drops without checking market price first.
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">✏️</div>
+        <div class="tip-title">How to Edit This Guide</div>
+        <div class="tip-body">
+          Open the HTML file in any text editor (Notepad, VS Code, etc.). The edit instructions are in a comment block at the very top of the file. Key sections to know:
+          <ul>
+            <li><strong>#boss-grid</strong> — Character leveling cards</li>
+            <li><strong>#pet-grid</strong> — Pet leveling cards</li>
+            <li><strong>#food-grid</strong> — Food buff cards</li>
+            <li><strong>#cons-tbody</strong> — Consumables table rows</li>
+            <li><strong>.tips-grid</strong> — These tip cards</li>
+          </ul>
+          Each card uses <code>data-text</code> for search keywords and <code>data-type</code>/<code>data-cat</code> for filters.
+        </div>
+      </div>
+        <div class="tip-body">
+          Use coryn.club for exact EXP values per boss/level, complete food buff lists with scaling, item drop locations, and boss attributes. The <strong>Leveling Tool</strong> (coryn.club/leveling.php) shows the best mobs relative to your exact current level.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<div class="copy-toast" id="copy-toast"></div>
+
+</div><!-- /wrap -->
+
+<script>
+  // ── THEME TOGGLE ──
+  function toggleTheme() {
+    const body = document.body;
+    const track = document.getElementById('toggle-track');
+    const label = document.getElementById('toggle-label');
+    const isLight = body.classList.toggle('light-mode');
+    track.classList.toggle('on', isLight);
+    label.textContent = isLight ? '☀ Light' : '🌙 Dark';
+    try { localStorage.setItem('toram-theme', isLight ? 'light' : 'dark'); } catch(e) {}
+  }
+
+  // Restore saved theme on load
+  (function() {
+    try {
+      if (localStorage.getItem('toram-theme') === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('toggle-track').classList.add('on');
+        document.getElementById('toggle-label').textContent = '☀ Light';
+      }
+    } catch(e) {}
+  })();
+
+  // ── TAB SWITCHING ──
+  function showTab(name, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── CARD SEARCH ──
+  function filterCards(inputId, gridId, cardClass) {
+    const q = document.getElementById(inputId).value.toLowerCase();
+    document.querySelectorAll('#' + gridId + ' .' + cardClass).forEach(card => {
+      const text = (card.dataset.text || '') + ' ' + card.innerText.toLowerCase();
+      card.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+
+  // ── TYPE FILTER (boss/mini/mob) ──
+  function filterType(btn, type, gridId) {
+    btn.closest('.search-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(gridId).querySelectorAll('.boss-card').forEach(card => {
+      if (type === 'all') { card.style.display = ''; return; }
+      card.style.display = card.dataset.type === type ? '' : 'none';
+    });
+  }
+
+  // ── TABLE SEARCH (shared by consumables and food buffs) ──
+  // catSelectId is optional — pass null if no category select
+  function filterTable(inputId, tbodyId, catSelectId) {
+    const q = document.getElementById(inputId).value.toLowerCase();
+    const cat = catSelectId && document.getElementById(catSelectId)
+      ? document.getElementById(catSelectId).value
+      : 'all';
+    document.querySelectorAll('#' + tbodyId + ' tr').forEach(row => {
+      const text = (row.dataset.text || '') + ' ' + row.innerText.toLowerCase();
+      const matchQ = text.includes(q);
+      const matchCat = cat === 'all' || row.dataset.cat === cat;
+      row.style.display = (matchQ && matchCat) ? '' : 'none';
+    });
+  }
+
+  // ── BUFF CODE COPY ──
+  const toast = document.getElementById('copy-toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  document.addEventListener('click', function(e) {
+    const code = e.target.closest('code.buff-code:not(.buff-code--empty)');
+    if (!code) return;
+    const text = code.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✓ Copied: ' + text);
+    }).catch(() => {
+      showToast('Code: ' + text);
+    });
+  });
+
+  // ── MEMBER FILTER ──
+  function filterMembers(btn, role) {
+    btn.closest('.member-filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#member-grid .member-card').forEach(card => {
+      card.style.display = (role === 'all' || card.dataset.role === role) ? '' : 'none';
+    });
+  }
+
+  // ── GALLERY LIGHTBOX ──
+  function openLightbox(card) {
+    const img = card.querySelector('img');
+    if (!img) return; // don't open lightbox for emoji placeholders
+    const caption = card.querySelector('.gallery-caption-title');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').alt = img.alt;
+    document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close')) return;
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
+  });
+
+  // Cons table filter wiring (uses old 2-arg style, we just pass null for cat)
+  document.getElementById('cons-cat').addEventListener('change', () =>
+    filterTable('cons-search', 'cons-tbody', 'cons-cat')
+  );
+
+</script>
+</body>
+</html>
