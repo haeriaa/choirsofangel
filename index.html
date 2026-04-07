@@ -296,7 +296,7 @@
   .logo-sub {
     font-family: 'Cinzel', serif;
     font-size: 11px;
-    color: var(--gold-dim);
+    color: var(--gold-light);
     letter-spacing: 4px;
     text-transform: uppercase;
     margin-top: 4px;
@@ -680,7 +680,7 @@
     align-items: center;
     gap: 8px;
     background: rgba(201,168,76,0.1);
-    border: 1px solid var(--gold-dim);
+    border: 1px solid var(--gold-light);
     border-radius: 6px;
     padding: 9px 18px;
     color: var(--gold-light);
@@ -851,17 +851,17 @@
     transition: border-color 0.25s, transform 0.2s;
   }
   .member-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-2px); }
-  .member-card[data-role="gm"]::before {
+  .member-card[data-role="1st"]::before {
     content: '';
     position: absolute; top:0; left:0; right:0; height:2px;
     background: linear-gradient(90deg, var(--gold), #f0d080, transparent);
   }
-  .member-card[data-role="vgm"]::before {
+  .member-card[data-role="2nd"]::before {
     content: '';
     position: absolute; top:0; left:0; right:0; height:2px;
     background: linear-gradient(90deg, var(--accent-purple), transparent);
   }
-  .member-card[data-role="member"]::before {
+  .member-card[data-role="3rd"]::before {
     content: '';
     position: absolute; top:0; left:0; right:0; height:2px;
     background: linear-gradient(90deg, var(--accent-blue), transparent);
@@ -894,12 +894,18 @@
     text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .badge-gm   { background:rgba(201,168,76,0.15); color:var(--gold); border:1px solid rgba(201,168,76,0.35); }
-  .badge-vgm  { background:rgba(139,92,246,0.15); color:#c4b5fd; border:1px solid rgba(139,92,246,0.35); }
-  .badge-mem  { background:rgba(61,110,212,0.12); color:#7ab3f0; border:1px solid rgba(61,110,212,0.3); }
+  .badge-seraphim   { background:rgba(201,168,76,0.15); color:#ff0000; border:1px solid rgba(201,168,76,0.35); }
+  .badge-cherubim  { background:rgba(139,92,246,0.15); color:#ff4b72; border:1px solid rgba(139,92,246,0.35); }
+  .badge-thrones  { background:rgba(61,110,212,0.12); color:#ffff00; border:1px solid rgba(61,110,212,0.3); }
+  .badge-dominion   { background:rgba(201,168,76,0.15); color:#727272; border:1px solid rgba(201,168,76,0.35); }
+  .badge-virtuous  { background:rgba(139,92,246,0.15); color:#7ec500; border:1px solid rgba(139,92,246,0.35); }
+  .badge-power  { background:rgba(61,110,212,0.12); color:#9d00ff; border:1px solid rgba(61,110,212,0.3); }
+  .badge-principalities   { background:rgba(201,168,76,0.15); color:#0000ff; border:1px solid rgba(201,168,76,0.35); }
+  .badge-archangels  { background:rgba(139,92,246,0.15); color:#00ffff; border:1px solid rgba(139,92,246,0.35); }
+  .badge-angel  { background:rgba(61,110,212,0.12); color:#c0c0c0; border:1px solid rgba(61,110,212,0.3); }
   .member-info {
     font-size: 13px;
-    color: var(--text-dim);
+    color: var(--text-light);
     line-height: 1.6;
   }
   .member-info strong { color: var(--text); }
@@ -1114,7 +1120,7 @@
         <span class="tab-icon">🎬</span>Guild Raids
       </button>
       <button class="tab-btn" onclick="showTab('members', this)">
-        <span class="tab-icon">👥</span>Members
+        <span class="tab-icon">👥</span>Guild Members
       </button>
       <button class="tab-btn" onclick="showTab('tips', this)">
         <span class="tab-icon">📜</span>Guild Tips
@@ -1750,7 +1756,7 @@
       <!-- PLACEHOLDER VIDEO 1 — replace with your real video -->
       <div class="raid-video-card">
         <iframe class="raid-video-embed"
-          src="https://youtu.be/0qhcdZ50jDE?si=tgMBpx0DsXRS0oem"
+          src="https://www.youtube.com/embed/0qhcdZ50jDE?si=x9GCi9MvhtGC0h_5"
           title="Guild Raid Video 1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
@@ -1763,7 +1769,7 @@
       <!-- PLACEHOLDER VIDEO 2 — replace with your real video -->
       <div class="raid-video-card">
         <iframe class="raid-video-embed"
-          src="https://youtu.be/SSmmq2C1OsU?si=nE_5pTwzLX6gVjbT"
+          src="https://www.youtube.com/embed/SSmmq2C1OsU?si=_jtbSFgY3g878LUx"
           title="Guild Raid Video 2"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
@@ -1816,9 +1822,9 @@
 
     <div class="member-filter-bar">
       <button class="filter-btn active" onclick="filterMembers(this,'all')">All</button>
-      <button class="filter-btn" onclick="filterMembers(this,'gm')">⭐ Guild Master</button>
-      <button class="filter-btn" onclick="filterMembers(this,'vgm')">🔷 Vice GM</button>
-      <button class="filter-btn" onclick="filterMembers(this,'member')">👤 Members</button>
+      <button class="filter-btn" onclick="filterMembers(this,'1st')">⭐ First Triad</button>
+      <button class="filter-btn" onclick="filterMembers(this,'2nd')">💫 Second Triad</button>
+      <button class="filter-btn" onclick="filterMembers(this,'3rd')">🪽 Third Triad</button>
     </div>
 
     <div class="member-grid" id="member-grid">
@@ -1846,64 +1852,133 @@
       -->
 
       <!-- ── GUILD MASTER ── -->
-      <div class="member-card" data-role="gm">
+      <div class="member-card" data-role="1st">
         <div class="member-avatar"><img src="seraphim.jpg" alt="Guild Logo"></div>
         <div class="member-name">— Alvehaz —</div>
-        <span class="member-role-badge badge-gm">Guild Master | Seraphim</span>
+        <span class="member-role-badge badge-seraphim">Guild Master</span>
+        <span class="member-role-badge badge-seraphim">Seraphim</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
-          Replace this with your GM's in-game name and details.
+          <strong>Roles:</strong> Multi-role <br>
+          <strong>Founder:</strong> October 27 2025<br>
+          -<br>
+          Discord username: @alvehaz<br>
         </div>
       </div>
 
       <!-- ── VICE GUILD MASTER 1 ── -->
-      <div class="member-card" data-role="vgm">
+      <div class="member-card" data-role="1st">
         <div class="member-avatar"><img src="cherubim.jpg" alt="Guild Logo"></div>
         <div class="member-name">— Haeria —</div>
-        <span class="member-role-badge badge-vgm">Vice GM | Cherubim</span>
+        <span class="member-role-badge badge-cherubim">Vice GM</span>
+        <span class="member-role-badge badge-cherubim">Cherubim</span>
+        <div class="member-info">
+          <strong>Build:</strong> Support & Tank<br>
+          <strong>Founder:</strong> October 27 2025<br>
+          -<br>
+          Discord username: @mochimallowss<br>
+        </div>
+      </div>
+
+      <div class="member-card" data-role="1st">
+        <div class="member-avatar"><img src="thrones.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— THRONES —</div>
+        <span class="member-role-badge badge-thrones">OPEN SLOT</span>
         <div class="member-info">
           <strong>Build:</strong> —<br>
           <strong>Joined:</strong> —<br>
-          Replace this with your first VGM's in-game name and details.
+          Advisors to the leadership.
+        </div>
+      </div>
+
+      <!-- ── 2ND TRIAD ── -->
+      <div class="member-card" data-role="2nd">
+        <div class="member-avatar"><img src="dominions.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— DOMINIONS —</div>
+        <span class="member-role-badge badge-dominion">OPEN SLOT</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          Guild moderators and organizers.
+        </div>
+      </div>
+
+      <div class="member-card" data-role="2nd">
+        <div class="member-avatar"><img src="virtuous.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— VIRTUOUS —</div>
+        <span class="member-role-badge badge-virtuous">OPEN SLOT</span>
+        <div class="member-info">
+          <strong>Build:</strong> —<br>
+          <strong>Joined:</strong> —<br>
+          The guild’s primary Supports and Tanks, responsible for protecting and sustaining the team during battles and raids.
+        </div>
+      </div>
+
+      <div class="member-card" data-role="2nd">
+        <div class="member-avatar"><img src="powers.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— POWERS —</div>
+        <span class="member-role-badge badge-power">OPEN SLOT</span>
+        <div class="member-info">
+          <strong>1st Seat:</strong> Selene<br>
+          <strong>2nd Seat:</strong> Luck<br>
+          <strong>3rd Seat:</strong> Haroumi<br>
+          <strong>4th Seat:</strong> Vorpal Bunny<br>
+          <strong>5th Seat:</strong> -<br>
+          <strong>6th Seat:</strong> -<br>
+          <strong>7th Seat:</strong> -<br>
+          <strong>8th Seat:</strong> -<br>
+          <strong>9th Seat:</strong> -<br>
+          <strong>10th Seat:</strong> -<br>
+          -<br>
+          Top attackers and elite players recognized for exceptional combat ability.
         </div>
       </div>
 
       <!-- ── MEMBER ── -->
-      <div class="member-card" data-role="member">
-        <div class="member-avatar">⚔</div>
-        <div class="member-name">— Member Name —</div>
-        <span class="member-role-badge badge-mem">Member</span>
+      <div class="member-card" data-role="3rd">
+        <div class="member-avatar"><img src="principalities.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— PRINCIPALITIES —</div>
+        <span class="member-role-badge badge-principalities">OPEN SLOT</span>
         <div class="member-info">
           <strong>Build:</strong> —<br>
           <strong>Joined:</strong> —<br>
-          Replace with member details.
+          Manage the Ascension Gate, guiding and admitting future Angels into the guild and ensuring they properly join the Discord community.
         </div>
       </div>
 
-      <!-- ── MEMBER ── -->
-      <div class="member-card" data-role="member">
-        <div class="member-avatar">🏹</div>
-        <div class="member-name">— Member Name —</div>
-        <span class="member-role-badge badge-mem">Member</span>
+      <div class="member-card" data-role="3rd">
+        <div class="member-avatar"><img src="archangels.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— ARCHANGELS —</div>
+        <span class="member-role-badge badge-archangels">OPEN SLOT</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
-          Replace with member details.
+          <strong>Archangel:</strong> <br>
+          Clavis<br>
+          TSURUNE<br>
+          -<br>
+          High-ranking guild members responsible for inviting new Angels and representing the guild with authority.
         </div>
       </div>
 
-      <!-- ── MEMBER ── -->
-      <div class="member-card" data-role="member">
-        <div class="member-avatar">🔮</div>
-        <div class="member-name">— Member Name —</div>
-        <span class="member-role-badge badge-mem">Member</span>
+      <div class="member-card" data-role="3rd">
+        <div class="member-avatar"><img src="angels.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— ANGELS —</div>
+        <span class="member-role-badge badge-angel">OPEN SLOT</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
-          Replace with member details.
+          <strong>Angels:</strong> <br>
+          Chi<br>
+          Elliya<br>
+          Eva<br>
+          Ha-Ha <br>
+          Haruna<br>
+          Haruka<br>
+          K-Y-O-T-O<br>
+          Nobody10<br>
+          VoidwalkerB<br>
+          -<br>
+          The heart of the community and the foundation of the Choirs of Angels.
         </div>
       </div>
+
+      
 
     </div><!-- /member-grid -->
 <!--
