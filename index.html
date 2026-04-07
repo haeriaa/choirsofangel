@@ -735,12 +735,12 @@
 
   /* ── FOOD CHIP TYPES ── */
   .chip-atk  { background:rgba(201,74,58,0.15);   color:#f08070; border:1px solid rgba(201,74,58,0.3); }
-  .chip-matk { background:rgba(139,92,246,0.15);  color:#c4b5fd; border:1px solid rgba(139,92,246,0.3); }
+  .chip-stats { background:rgba(139,92,246,0.15);  color:#c4b5fd; border:1px solid rgba(139,92,246,0.3); }
   .chip-hp   { background:rgba(34,197,94,0.12);   color:#6ee7a0; border:1px solid rgba(34,197,94,0.3); }
   .chip-def  { background:rgba(61,110,212,0.15);  color:#7ab3f0; border:1px solid rgba(61,110,212,0.3); }
   .chip-crit { background:rgba(245,158,11,0.12);  color:#fbbf5a; border:1px solid rgba(245,158,11,0.3); }
   .chip-util { background:rgba(30,184,176,0.12);  color:#5eead4; border:1px solid rgba(30,184,176,0.3); }
-  .chip-exp  { background:rgba(201,168,76,0.1);   color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
+  .chip-dte  { background:rgba(201,168,76,0.1);   color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
 
   /* copied code toast */
   .copy-toast {
@@ -2170,7 +2170,23 @@
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <tr data-cat="crit" data-text="max mp">
+          <tr data-cat="ampr" data-text="ampr">
+            <td class="item-name">— AMPR LV 10—</td>
+            <td class="effect-hp">+30 AMPR</td>
+            <td><code class="buff-code buff-code--empty">1010596</code>
+            <code class="buff-code buff-code--empty">1047777</code>
+            <code class="buff-code buff-code--empty">1111000</code>
+            <code class="buff-code buff-code--empty">2020909</code>
+            <code class="buff-code buff-code--empty">3020777</code>
+            <code class="buff-code buff-code--empty">3021003</code>
+            <code class="buff-code buff-code--empty">4040404</code>
+            <code class="buff-code buff-code--empty">4233333</code>
+            <code class="buff-code buff-code--empty">5236969</code></td>
+            <td><span class="chip chip-hp" style="font-size:11px; white-space: nowrap;">CRIT</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+           <tr data-cat="crit" data-text="crit">
             <td class="item-name">— Crit Rate LV 10—</td>
             <td class="effect-crit">+30 CR</td>
             <td><code class="buff-code buff-code--empty">1037777</code>
@@ -2182,6 +2198,29 @@
             <code class="buff-code buff-code--empty">5119105</code>
             <code class="buff-code buff-code--empty">7162029</code></td>
             <td><span class="chip chip-crit" style="font-size:11px; white-space: nowrap;">CRIT</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="accu" data-text="accuracy">
+            <td class="item-name">— Accuracy LV 10—</td>
+            <td class="effect-crit">+100 Accuracy</td>
+            <td><code class="buff-code buff-code--empty">2010308</code>
+            <code class="buff-code buff-code--empty">4261111</code>
+            </td>
+            <td><span class="chip chip-crit" style="font-size:11px; white-space: nowrap;">ACCURACY</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="str" data-text="str">
+            <td class="item-name">— STR LV 10—</td>
+            <td class="effect-stats">+30 CR</td>
+            <td><code class="buff-code buff-code--empty">1110033</code>
+            <code class="buff-code buff-code--empty">2020303</code>
+            <code class="buff-code buff-code--empty">4010024</code>
+            <code class="buff-code buff-code--empty">5050888</code>
+            <code class="buff-code buff-code--empty">5261919</code>
+            </td>
+            <td><span class="chip chip-stats" style="font-size:11px; white-space: nowrap;">STR</span></td>
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
           
