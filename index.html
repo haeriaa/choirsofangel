@@ -462,7 +462,7 @@
     font-family: 'Cinzel', serif;
     font-size: 15px;
     font-weight: 600;
-    color: #99802d;
+    color: var(--gold-light);
     line-height: 1.3;
   }
   .boss-level-range {
@@ -551,12 +551,12 @@
     content: '';
     position: absolute; top: 0; left: 0; right: 0; height: 2px;
   }
-  .food-card.cat-atk::before { background: linear-gradient(90deg, #c94a3a, transparent); }
-  .food-card.cat-stat::before { background: linear-gradient(90deg, #8b5cf6, transparent); }
+  .food-card.cat-atk::before { background: linear-gradient(90deg, #fe4027, transparent); }
+  .food-card.cat-stats::before { background: linear-gradient(90deg, #11d4c7, transparent); }
   .food-card.cat-def::before { background: linear-gradient(90deg, #3d6ed4, transparent); }
-  .food-card.cat-hp::before { background: linear-gradient(90deg, #22c55e, transparent); }
+  .food-card.cat-hp::before { background: linear-gradient(90deg, #0ab147, transparent); }
   .food-card.cat-dte::before { background: linear-gradient(90deg, var(--gold), transparent); }
-  .food-card.cat-aggro::before { background: linear-gradient(90deg, #1eb8b0, transparent); }
+  .food-card.cat-aggro::before { background: linear-gradient(90deg, #ec23f0, transparent); }
   .food-name {
     font-family: 'Cinzel', serif;
     font-size: 14px;
@@ -602,7 +602,7 @@
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 1px;
-    color: var(--gold-dim);
+    color: var(--gold-light);
     padding: 12px 16px;
     text-align: left;
     border-bottom: 1px solid var(--border);
@@ -618,11 +618,11 @@
   .consoom-table tbody tr { background: var(--bg-card); transition: background 0.15s; }
   .consoom-table tbody tr:nth-child(even) { background: var(--bg-card2); }
   .consoom-table tbody tr:hover { background: rgba(201,168,76,0.04); }
-  .consoom-table .item-name { font-weight: 700; color: #dde4ff; }
+  .consoom-table .item-name { font-weight: 700; color: var(--gold-light); }
   .effect-atk { color: #f08070; font-weight: 600; }
   .effect-matk { color: #c4b5fd; font-weight: 600; }
-  .effect-hp { color: #6ee7a0; font-weight: 600; }
-  .effect-util { color: #7dd3fc; font-weight: 600; }
+  .effect-hp { color: #3db16d; font-weight: 600; }
+  .effect-util { color: #de7dfc; font-weight: 600; }
   .effect-exp { color: var(--gold); font-weight: 600; }
 
   /* ── TIPS PANEL ── */
@@ -735,11 +735,11 @@
 
   /* ── FOOD CHIP TYPES ── */
   .chip-atk  { background:rgba(201,74,58,0.15);   color:#f08070; border:1px solid rgba(201,74,58,0.3); }
-  .chip-stats { background:rgba(139,92,246,0.15);  color:#c4b5fd; border:1px solid rgba(139,92,246,0.3); }
-  .chip-hp   { background:rgba(34,197,94,0.12);   color:#6ee7a0; border:1px solid rgba(34,197,94,0.3); }
-  .chip-def  { background:rgba(61,110,212,0.15);  color:#7ab3f0; border:1px solid rgba(61,110,212,0.3); }
-  .chip-crit { background:rgba(245,158,11,0.12);  color:#fbbf5a; border:1px solid rgba(245,158,11,0.3); }
-  .chip-util { background:rgba(30,184,176,0.12);  color:#5eead4; border:1px solid rgba(30,184,176,0.3); }
+  .chip-stats { background:rgba(139,92,246,0.15);  color:#04aa99; border:1px solid rgba(92, 208, 246, 0.3); }
+  .chip-hp   { background:rgba(34,197,94,0.12);   color:#0bba54; border:1px solid rgba(34,197,94,0.3); }
+  .chip-def  { background:rgba(61,110,212,0.15);  color:#1b83f1; border:1px solid rgba(61,110,212,0.3); }
+  .chip-crit { background:rgba(245,158,11,0.12);  color:#cd8810; border:1px solid rgba(245,158,11,0.3); }
+  .chip-util { background:rgba(30,184,176,0.12);  color:#d62b94; border:1px solid rgba(184, 30, 182, 0.3); }
   .chip-dte  { background:rgba(201,168,76,0.1);   color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
 
   /* copied code toast */
@@ -796,7 +796,7 @@
     font-family: 'Cinzel', serif;
     font-size: 14px;
     font-weight: 600;
-    color: #e8eeff;
+    color: var(--gold-light);
     margin-bottom: 5px;
   }
   .raid-video-meta {
@@ -881,7 +881,7 @@
     font-family: 'Cinzel', serif;
     font-size: 15px;
     font-weight: 600;
-    color: #e8eeff;
+    color: var(--gold-light);
     margin-bottom: 6px;
   }
   .member-role-badge {
@@ -939,7 +939,7 @@
     font-family: 'Cinzel', serif;
     font-size: 13px;
     font-weight: 600;
-    color: #dde4ff;
+    color: var(--gold-light);
     margin-bottom: 3px;
   }
   .gallery-caption-meta {
@@ -1104,14 +1104,8 @@
       <button class="tab-btn active" onclick="showTab('leveling', this)">
         <span class="tab-icon">🗡</span>Character Leveling
       </button>
-      <button class="tab-btn" onclick="showTab('pet', this)">
-        <span class="tab-icon">🐾</span>Pet Leveling
-      </button>
       <button class="tab-btn" onclick="showTab('food', this)">
         <span class="tab-icon">🍖</span>FoodBuffs Codes
-      </button>
-      <button class="tab-btn" onclick="showTab('consumables', this)">
-        <span class="tab-icon">⚗</span>Consumables
       </button>
       <button class="tab-btn" onclick="showTab('mq', this)">
         <span class="tab-icon">📖</span>MQ EXP Calculator
@@ -1122,12 +1116,20 @@
       <button class="tab-btn" onclick="showTab('members', this)">
         <span class="tab-icon">👥</span>Members
       </button>
-      <button class="tab-btn" onclick="showTab('gallery', this)">
-        <span class="tab-icon">🖼</span>Gallery
-      </button>
       <button class="tab-btn" onclick="showTab('tips', this)">
         <span class="tab-icon">📜</span>Guild Tips
       </button>
+      <!--
+      <button class="tab-btn" onclick="showTab('gallery', this)">
+        <span class="tab-icon">🖼</span>Gallery
+      </button>
+      <button class="tab-btn" onclick="showTab('consumables', this)">
+        <span class="tab-icon">⚗</span>Consumables
+      </button>
+      <button class="tab-btn" onclick="showTab('pet', this)">
+        <span class="tab-icon">🐾</span>Pet Leveling
+      </button>
+    -->
     </div>
   </header>
 
@@ -1578,7 +1580,7 @@
         </div>
         <div class="tip-card">
           <div class="tip-icon">🔄</div>
-          <div class="tip-title">Start from Latest</div>
+          <div class="tip-title">Start from Latest (Only for New Accounts)</div>
           <div class="tip-body">After clearing Chapter 8 (Finstern), create new characters and select <strong>"Start from Latest"</strong> to skip straight to Chapter 9 and preserve all the big EXP chapters for them too.</div>
         </div>
         <div class="tip-card">
@@ -1602,7 +1604,7 @@
 
     <div class="coryn-link-bar">
       <p><strong>Key rule:</strong> Pets earn EXP from boss kills only — not quests. Never let your pet die during a fight or it gets <strong>zero EXP</strong> for that run. Boss Easy mode is safest. Use EXP books to double gains.</p>
-      <a href="https://coryn.club/leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Coryn Leveling Tool</a>
+      <a href="https://coryn.club/pet_leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Coryn Leveling Tool</a>
     </div>
 
     <div class="search-bar">
@@ -1614,9 +1616,9 @@
 
     <div class="boss-grid" id="pet-grid">
 
-      <div class="boss-card type-boss" data-type="boss" data-text="gespengst sofya sewers pet early low level">
+      <div class="boss-card type-boss" data-type="boss" data-text="gespenst sofya sewers pet early low level">
         <div class="boss-header">
-          <div class="boss-name">Gespengst</div>
+          <div class="boss-name">Gespenst</div>
           <div class="lvl-col"><span class="lvl-range-big">1–40</span><div class="boss-level-label">Pet Level</div></div>
         </div>
         <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy → Normal</span></div>
@@ -1682,6 +1684,7 @@
     </div>
 
     <!-- ✏ HOW TO EDIT THIS SECTION -->
+     <!--
     <div class="edit-guide-card">
       <h3>✏ How to Add or Edit Pet Leveling Spots</h3>
       <p>Find <code>#pet-grid</code> in this file. Copy any <code>&lt;div class="boss-card ..."&gt;</code> block inside it and paste it to add a new entry.</p>
@@ -1696,7 +1699,7 @@
         <li>Cards show in the order they appear in the file — put lower-level pet spots first.</li>
       </ul>
     </div>
-
+  -->
   </div>
 
   <!-- ═══════════════════════════════════════ -->
@@ -1718,7 +1721,7 @@
     <div class="raid-channel-bar">
       <p>Watch our guild's raid and boss runs on our official YouTube channel. Subscribe to stay updated on new uploads!</p>
       <!-- EDIT: Replace the href below with your actual YouTube channel URL -->
-      <a href="https://www.youtube.com/@YourGuildChannel" target="_blank" rel="noopener" class="btn-yt">▶ Visit Our Channel</a>
+      <a href="https://www.youtube.com/@thechoirsofangels" target="_blank" rel="noopener" class="btn-yt">▶ Visit Our Channel</a>
     </div>
 
     <div class="raid-video-grid" id="raid-video-grid">
@@ -1747,44 +1750,45 @@
       <!-- PLACEHOLDER VIDEO 1 — replace with your real video -->
       <div class="raid-video-card">
         <iframe class="raid-video-embed"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          src="https://youtu.be/0qhcdZ50jDE?si=tgMBpx0DsXRS0oem"
           title="Guild Raid Video 1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
         <div class="raid-video-info">
-          <div class="raid-video-title">— Add your first raid video here —</div>
-          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+          <div class="raid-video-title">— Our FIRST EVER GUILD RAID! —</div>
+          <div class="raid-video-meta">📅 17 Nov 2025 · 👤 Choirs of Angels</div>
         </div>
       </div>
 
       <!-- PLACEHOLDER VIDEO 2 — replace with your real video -->
       <div class="raid-video-card">
         <iframe class="raid-video-embed"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          src="https://youtu.be/SSmmq2C1OsU?si=nE_5pTwzLX6gVjbT"
           title="Guild Raid Video 2"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
         <div class="raid-video-info">
-          <div class="raid-video-title">— Add your second raid video here —</div>
-          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+          <div class="raid-video-title">— OUR GUILD’S FIRST 16/16 FULL RAID! Fought 3 ELEMENTS 😱 —</div>
+          <div class="raid-video-meta">📅 18 Dec 2025 · 👤 Choirs of Angels</div>
         </div>
       </div>
 
       <!-- PLACEHOLDER VIDEO 3 — replace with your real video -->
       <div class="raid-video-card">
         <iframe class="raid-video-embed"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          src="https://youtu.be/M4NHXp9HEb8?si=QBPqOVGfHMnL2F5L"
           title="Guild Raid Video 3"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
         <div class="raid-video-info">
-          <div class="raid-video-title">— Add your third raid video here —</div>
-          <div class="raid-video-meta">📅 Replace this · 👤 Replace with uploader name</div>
+          <div class="raid-video-title">— Choirs of Angels Guild Raid | New Angels Join the Battle —</div>
+          <div class="raid-video-meta">📅 6 Mar 2026 · 👤 Choirs of Angels</div>
         </div>
       </div>
 
     </div><!-- /raid-video-grid -->
 
+    <!--
     <div class="edit-guide-card" style="margin-top:32px;">
       <h3>✏ How to Add Raid Videos</h3>
       <div class="edit-step"><div class="edit-step-num">1</div><p>Go to the YouTube video you want to embed. Copy the part after <code>?v=</code> in the URL — that is your <strong>Video ID</strong>.</p></div>
@@ -1793,6 +1797,7 @@
       <div class="edit-step"><div class="edit-step-num">4</div><p>Edit the <code>.raid-video-title</code> text (boss name / difficulty) and the <code>.raid-video-meta</code> text (date and uploader name).</p></div>
       <div class="edit-step"><div class="edit-step-num">5</div><p>Update the channel link at the top: find <code>href="https://www.youtube.com/@YourGuildChannel"</code> and replace it with your actual channel URL.</p></div>
     </div>
+  -->
   </div>
 
   <!-- ═══════════════════════════════════════ -->
@@ -1842,9 +1847,9 @@
 
       <!-- ── GUILD MASTER ── -->
       <div class="member-card" data-role="gm">
-        <div class="member-avatar">⭐</div>
-        <div class="member-name">— GM Name Here —</div>
-        <span class="member-role-badge badge-gm">Guild Master</span>
+        <div class="member-avatar"><img src="seraphim.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— Alvehaz —</div>
+        <span class="member-role-badge badge-gm">Guild Master | Seraphim</span>
         <div class="member-info">
           <strong>Build:</strong> —<br>
           <strong>Joined:</strong> —<br>
@@ -1854,25 +1859,13 @@
 
       <!-- ── VICE GUILD MASTER 1 ── -->
       <div class="member-card" data-role="vgm">
-        <div class="member-avatar">🔷</div>
-        <div class="member-name">— VGM Name Here —</div>
-        <span class="member-role-badge badge-vgm">Vice GM</span>
+        <div class="member-avatar"><img src="cherubim.jpg" alt="Guild Logo"></div>
+        <div class="member-name">— Haeria —</div>
+        <span class="member-role-badge badge-vgm">Vice GM | Cherubim</span>
         <div class="member-info">
           <strong>Build:</strong> —<br>
           <strong>Joined:</strong> —<br>
           Replace this with your first VGM's in-game name and details.
-        </div>
-      </div>
-
-      <!-- ── VICE GUILD MASTER 2 ── -->
-      <div class="member-card" data-role="vgm">
-        <div class="member-avatar">🔷</div>
-        <div class="member-name">— VGM Name Here —</div>
-        <span class="member-role-badge badge-vgm">Vice GM</span>
-        <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
-          Replace this with your second VGM's in-game name and details.
         </div>
       </div>
 
@@ -1913,7 +1906,7 @@
       </div>
 
     </div><!-- /member-grid -->
-
+<!--
     <div class="edit-guide-card" style="margin-top:32px;">
       <h3>✏ How to Add or Edit Members</h3>
       <div class="edit-step"><div class="edit-step-num">1</div><p>Find <code>#member-grid</code> in this file. Copy any <code>.member-card</code> block and paste it inside that grid.</p></div>
@@ -1926,6 +1919,7 @@
         <li>Keep GM and VGM cards at the top of the grid so they appear first.</li>
       </ul>
     </div>
+  -->
   </div>
 
   <!-- ═══════════════════════════════════════ -->
@@ -2012,6 +2006,7 @@
       <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
+    <!--
     <div class="edit-guide-card" style="margin-top:32px;">
       <h3>✏ How to Add Gallery Photos</h3>
       <div class="edit-step"><div class="edit-step-num">1</div><p>Find <code>#gallery-grid</code> in this file. Copy any <code>.gallery-card</code> block and paste it inside the grid.</p></div>
@@ -2024,6 +2019,7 @@
         <li>To remove a photo, delete the entire <code>&lt;div class="gallery-card"&gt;...&lt;/div&gt;</code> block.</li>
       </ul>
     </div>
+  -->
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -2101,11 +2097,12 @@
         <option value="dtee">Damage to Earth</option>
         <option value="dtef">Damage to Fire</option>
         <option value="dtewr">Damage to Water</option>
-        <option value="dteewd">Damage to Wind</option>
+        <option value="dtewd">Damage to Wind</option>
         <option value="dted">Damage to Dark</option>
         <option value="dtel">Damage to Light</option>
-        <option value="aggr+">Aggro +%</option>
-        <option value="aggr-">Aggro -%</option>
+        <option value="dtn">Damage to Neutral</option>
+        <option value="aggro+">Aggro +%</option>
+        <option value="aggro-">Aggro -%</option>
         <option value="pres">Physical Resistance</option>
         <option value="mres">Magic Resistance</option>
         <option value="frac">Fractional Barrier</option>
@@ -2201,7 +2198,7 @@
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <tr data-cat="accu" data-text="accuracy">
+          <tr data-cat="acc" data-text="accuracy">
             <td class="item-name">— Accuracy LV 10—</td>
             <td class="effect-util">+100 Accuracy</td>
             <td><code class="buff-code buff-code--empty">2010308</code>
@@ -2213,7 +2210,7 @@
 
           <tr data-cat="str" data-text="str">
             <td class="item-name">— STR LV 10—</td>
-            <td class="effect-stats">+30 STR</td>
+            <td class="effect-hp">+30 STR</td>
             <td><code class="buff-code buff-code--empty">1110033</code>
             <code class="buff-code buff-code--empty">2020303</code>
             <code class="buff-code buff-code--empty">4010024</code>
@@ -2226,7 +2223,7 @@
 
           <tr data-cat="int" data-text="int">
             <td class="item-name">— INT LV 10—</td>
-            <td class="effect-stats">+30 INT</td>
+            <td class="effect-hp">+30 INT</td>
             <td><code class="buff-code buff-code--empty">1032222</code>
             <code class="buff-code buff-code--empty">1047777</code>
             <code class="buff-code buff-code--empty">2020707</code>
@@ -2239,7 +2236,7 @@
 
            <tr data-cat="vit" data-text="vit">
             <td class="item-name">— VIT LV 10—</td>
-            <td class="effect-stats">+30 VIT</td>
+            <td class="effect-hp">+30 VIT</td>
             <td><code class="buff-code buff-code--empty">5130123</code>
             </td>
             <td><span class="chip chip-stats" style="font-size:11px; white-space: nowrap;">VIT</span></td>
@@ -2248,7 +2245,7 @@
 
           <tr data-cat="agi" data-text="agi">
             <td class="item-name">— AGI LV 10—</td>
-            <td class="effect-stats">+30 AGI</td>
+            <td class="effect-hp">+30 AGI</td>
             <td><code class="buff-code buff-code--empty">1032222</code>
             <code class="buff-code buff-code--empty">1220777</code>
             <code class="buff-code buff-code--empty">7162029</code>
@@ -2260,7 +2257,7 @@
 
           <tr data-cat="dex" data-text="dex">
             <td class="item-name">— DEX LV 10—</td>
-            <td class="effect-stats">+30 DEX</td>
+            <td class="effect-hp">+30 DEX</td>
             <td><code class="buff-code buff-code--empty">1010058</code>
             <code class="buff-code buff-code--empty">1010106</code>
             <code class="buff-code buff-code--empty">1010261</code>
@@ -2271,87 +2268,184 @@
             <td><span class="chip chip-stats" style="font-size:11px; white-space: nowrap;">DEX</span></td>
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
+
+          <tr data-cat="watk" data-text="watk">
+            <td class="item-name">— WATK LV 10—</td>
+            <td class="effect-atk">+100 WATK</td>
+            <td><code class="buff-code buff-code--empty">1010810</code>
+            <code class="buff-code buff-code--empty">1011126</code>
+            <code class="buff-code buff-code--empty">1180020</code>
+            <code class="buff-code buff-code--empty">2020404</code>
+            <code class="buff-code buff-code--empty">3010777</code>
+            <code class="buff-code buff-code--empty">6010024</code>
+            </td>
+            <td><span class="chip chip-atk" style="font-size:11px; white-space: nowrap;">WATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="atk" data-text="atk">
+            <td class="item-name">— ATK LV 10—</td>
+            <td class="effect-atk">+100 ATK</td>
+            <td><code class="buff-code buff-code--empty">1119876</code>
+            <code class="buff-code buff-code--empty">7170717</code>
+            </td>
+            <td><span class="chip chip-atk" style="font-size:11px; white-space: nowrap;">ATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="matk" data-text="matk">
+            <td class="item-name">— MATK LV 10—</td>
+            <td class="effect-matk">+100 MATK</td>
+            <td><code class="buff-code buff-code--empty">2030666</code>
+            </td>
+            <td><span class="chip chip-atk" style="font-size:11px; white-space: nowrap;">MATK</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
           
-          <tr data-cat="atk" data-text="atk attack food buff physical 2">
-            <td class="item-name">— ATK Food Name —</td>
-            <td class="effect-atk">ATK +? &amp; +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-atk" style="font-size:11px;">ATK</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Add a second ATK food if your guild uses one</td>
+          <tr data-cat="dtee" data-text="dtee">
+            <td class="item-name">— DTE Earth LV 10—</td>
+            <td class="effect-hp">+15% DTE Earth</td>
+            <td><code class="buff-code buff-code--empty">2020202</code>
+            <code class="buff-code buff-code--empty">7100666</code>
+            <code class="buff-code buff-code--empty">LV 8 1010216</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Earth</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── MATK FOODS ── -->
-          <tr data-cat="matk" data-text="matk magic attack food buff mage caster">
-            <td class="item-name">— MATK Food Name —</td>
-            <td class="effect-matk">MATK +? &amp; +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-matk" style="font-size:11px;">MATK</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
-          </tr>
-          <tr data-cat="matk" data-text="matk magic attack food buff mage caster 2">
-            <td class="item-name">— MATK Food Name —</td>
-            <td class="effect-matk">MATK +? &amp; +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-matk" style="font-size:11px;">MATK</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Add a second MATK food if your guild uses one</td>
+          <tr data-cat="dtef" data-text="dtef">
+            <td class="item-name">— DTE Fire LV 10—</td>
+            <td class="effect-hp">+15% DTE Fire</td>
+            <td><code class="buff-code buff-code--empty">3210106</code>
+            <code class="buff-code buff-code--empty">9181111</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Fire</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── HP FOODS ── -->
-          <tr data-cat="hp" data-text="hp max health food buff tank survive">
-            <td class="item-name">— HP Food Name —</td>
-            <td class="effect-hp">Max HP +?</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-hp" style="font-size:11px;">Max HP</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          <tr data-cat="dtewr" data-text="dtewr">
+            <td class="item-name">— DTE Water LV 10—</td>
+            <td class="effect-hp">+15% DTE Water</td>
+            <td><code class="buff-code buff-code--empty">7150030</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Water</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── DEF / RESIST FOODS ── -->
-          <tr data-cat="def" data-text="def defense resist reduction food buff tank">
-            <td class="item-name">— DEF/Resist Food Name —</td>
-            <td class="effect-util">DEF +? or Resist +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-def" style="font-size:11px;">DEF</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          <tr data-cat="dtewd" data-text="dtewd">
+            <td class="item-name">— DTE Wind LV 10—</td>
+            <td class="effect-hp">+15% DTE Wind</td>
+            <td><code class="buff-code buff-code--empty">7257777</code>
+            <code class="buff-code buff-code--empty">3030303</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Wind</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── CRIT FOODS ── -->
-          <tr data-cat="crit" data-text="crit critical rate food buff damage">
-            <td class="item-name">— CRIT Food Name —</td>
-            <td class="effect-util">CRIT Rate +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-crit" style="font-size:11px;">CRIT</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          <tr data-cat="dted" data-text="dted">
+            <td class="item-name">— DTE Dark LV 10—</td>
+            <td class="effect-hp">+15% DTE Dark</td>
+            <td><code class="buff-code buff-code--empty">1190020</code>
+            <code class="buff-code buff-code--empty">2130776</code>
+            <code class="buff-code buff-code--empty">6116116</code>
+            <code class="buff-code buff-code--empty">5010092</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Dark</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── UTILITY FOODS ── -->
-          <tr data-cat="util" data-text="utility hit accuracy flee evade ampr food buff">
-            <td class="item-name">— Utility Food Name —</td>
-            <td class="effect-util">HIT +? / FLEE +? / AMPR +?</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-util" style="font-size:11px;">Utility</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
-          </tr>
-          <tr data-cat="util" data-text="utility hit accuracy flee evade ampr food buff 2">
-            <td class="item-name">— Utility Food Name —</td>
-            <td class="effect-util">HIT +? / FLEE +? / AMPR +?</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-util" style="font-size:11px;">Utility</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Add a second utility food if applicable</td>
+           <tr data-cat="dtel" data-text="dtel">
+            <td class="item-name">— DTE Light LV 9—</td>
+            <td class="effect-hp">+13% DTE Light</td>
+            <td><code class="buff-code buff-code--empty">1105050</code>
+            <code class="buff-code buff-code--empty">3111999</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Light</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
-          <!-- ── EXP FOODS ── -->
-          <tr data-cat="exp" data-text="exp experience gain food buff leveling">
-            <td class="item-name">— EXP Food Name —</td>
-            <td class="effect-exp">EXP Gain +?%</td>
-            <td><code class="buff-code buff-code--empty">???????</code></td>
-            <td><span class="chip chip-exp" style="font-size:11px;">EXP</span></td>
-            <td style="font-size:12px;color:var(--text-dim)">Fill in food name, effect at Lv10, and buff code</td>
+          <tr data-cat="dtn" data-text="dtn">
+            <td class="item-name">— DT Neutral LV 8—</td>
+            <td class="effect-hp">+11% DT Neutral</td>
+            <td><code class="buff-code buff-code--empty">1234561</code>
+            </td>
+            <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DT Neutral</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
+
+          <tr data-cat="aggro-" data-text="aggro-">
+            <td class="item-name">— Aggro- LV 10—</td>
+            <td class="effect-util">-100% Aggro</td>
+            <td><code class="buff-code buff-code--empty">1010147</code>
+            <code class="buff-code buff-code--empty">1011174</code>
+            <code class="buff-code buff-code--empty">2020808</code>
+            <code class="buff-code buff-code--empty">3010018</code>
+            <code class="buff-code buff-code--empty">3190038</code>
+            </td>
+            <td><span class="chip chip-util" style="font-size:11px; white-space: nowrap;">-Aggro</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="aggro+" data-text="aggro+">
+            <td class="item-name">— Aggro+ LV 10—</td>
+            <td class="effect-util">+100% Aggro</td>
+            <td><code class="buff-code buff-code--empty">1011340</code>
+            <code class="buff-code buff-code--empty">2010136</code>
+            <code class="buff-code buff-code--empty">2020606</code>
+            <code class="buff-code buff-code--empty">3158668</code>
+            <code class="buff-code buff-code--empty">53010043</code>
+            </td>
+            <td><span class="chip chip-util" style="font-size:11px; white-space: nowrap;">+Aggro</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="pres" data-text="pres">
+            <td class="item-name">— Physical Resistance LV 10—</td>
+            <td class="effect-util">+50% PHY RES</td>
+            <td><code class="buff-code buff-code--empty">1010081</code>
+            <code class="buff-code buff-code--empty">1020001</code>
+            <code class="buff-code buff-code--empty">2020111</code>
+            <code class="buff-code buff-code--empty">4010051</code>
+            <code class="buff-code buff-code--empty">6010701</code>
+            <code class="buff-code buff-code--empty">7010014</code>
+            </td>
+            <td><span class="chip chip-def" style="font-size:11px; white-space: nowrap;">PHY RES</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="mres" data-text="mres">
+            <td class="item-name">— Magic Resistance LV 10—</td>
+            <td class="effect-util">+50% MGC RES</td>
+            <td><code class="buff-code buff-code--empty">1111575</code>
+            <code class="buff-code buff-code--empty">2020505</code>
+            <code class="buff-code buff-code--empty">6190007</code>
+            <code class="buff-code buff-code--empty">7010016</code>
+            <code class="buff-code buff-code--empty">LV 9 53010043</code>
+            </td>
+            <td><span class="chip chip-def" style="font-size:11px; white-space: nowrap;">MGC RES</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+
+          <tr data-cat="frac" data-text="frac">
+            <td class="item-name">— Fractional Barrier LV 10—</td>
+            <td class="effect-util">+30% FRAC BARRIER</td>
+            <td><code class="buff-code buff-code--empty">1012222</code>
+            <code class="buff-code buff-code--empty">1074649</code>
+            <code class="buff-code buff-code--empty">4010024</code>
+            <code class="buff-code buff-code--empty">6150029</code>
+            <code class="buff-code buff-code--empty">LV 9 3010003</code>
+            </td>
+            <td><span class="chip chip-def" style="font-size:11px; white-space: nowrap;">FRAC BARRIER</span></td>
+            <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
+          </tr>
+          
         </tbody>
       </table>
     </div>
 
+    
     <!-- How-to note -->
+     <!--
     <div style="
       margin-top: 20px;
       background: rgba(201,168,76,0.05);
@@ -2369,6 +2463,7 @@
       4. Fill in the food name, the stat effect at max level (Lv10), and any notes (how to obtain, tips, etc.).<br>
       5. To add a brand-new row, copy any existing <code style="color:#7ab3f0">&lt;tr&gt;</code> block and paste it inside <code style="color:#7ab3f0">#food-tbody</code>. Change <code style="color:#7ab3f0">data-cat</code> to the correct type.
     </div>
+  -->
   </div>
 
   <!-- ═══════════════════════════════════════ -->
@@ -2382,7 +2477,7 @@
 
     <div class="coryn-link-bar">
       <p>Consumables are one-use items for survival and combat support. Made via <strong>Alchemy skill</strong> or dropped by monsters. You can also get them from Potum Darts, quests, and events.</p>
-      <a href="https://coryn.club" target="_blank" rel="noopener" class="btn-link">🔗 Search Items on Coryn</a>
+      <a href="https://coryn.club/item.php?name=&type=1&order=id+DESC&show=11" target="_blank" rel="noopener" class="btn-link">🔗 Search Items on Coryn</a>
     </div>
 
     <div class="search-bar">
@@ -2659,6 +2754,7 @@
         </div>
       </div>
 
+      <!--
       <div class="tip-card">
         <div class="tip-icon">✏️</div>
         <div class="tip-title">How to Edit This Guide</div>
@@ -2678,6 +2774,7 @@
           Use coryn.club for exact EXP values per boss/level, complete food buff lists with scaling, item drop locations, and boss attributes. The <strong>Leveling Tool</strong> (coryn.club/leveling.php) shows the best mobs relative to your exact current level.
         </div>
       </div>
+    -->
 
     </div>
   </div>
