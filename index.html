@@ -497,6 +497,7 @@
   .chip-mini { background: rgba(245,158,11,0.12); color: #fbbf5a; border: 1px solid rgba(245,158,11,0.3); }
   .chip-mob  { background: rgba(61,110,212,0.15); color: #4c75fa; border: 1px solid rgba(61,110,212,0.3); }
   .chip-pet  { background: rgba(34,197,94,0.12); color: #6ee7a0; border: 1px solid rgba(34,197,94,0.3); }
+  .chip-mp  { background: rgba(34,197,94,0.12); color: #20d4ec; border: 1px solid rgba(34,197,94,0.3); }
   .chip-char { background: rgba(139,92,246,0.15); color: #8c76e4; border: 1px solid rgba(139,92,246,0.3); }
   .chip-diff { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
 
@@ -619,10 +620,11 @@
   .consoom-table tbody tr:nth-child(even) { background: var(--bg-card2); }
   .consoom-table tbody tr:hover { background: rgba(201,168,76,0.04); }
   .consoom-table .item-name { font-weight: 700; color: var(--gold-light); }
-  .effect-atk { color: #f08070; font-weight: 600; }
-  .effect-matk { color: #c4b5fd; font-weight: 600; }
+  .effect-atk { color: #b21e37; font-weight: 600; }
+  .effect-matk { color: #9456f0; font-weight: 600; }
+  .effect-mp { color: #00b8bb; font-weight: 600; }
   .effect-hp { color: #3db16d; font-weight: 600; }
-  .effect-util { color: #de7dfc; font-weight: 600; }
+  .effect-def { color: #ad6216; font-weight: 600; }
   .effect-exp { color: var(--gold); font-weight: 600; }
 
   /* ── TIPS PANEL ── */
@@ -1110,8 +1112,14 @@
       <button class="tab-btn active" onclick="showTab('leveling', this)">
         <span class="tab-icon">🗡</span>Character Leveling
       </button>
+      <button class="tab-btn" onclick="showTab('pet', this)">
+        <span class="tab-icon">🐾</span>Pet Leveling
+      </button>
       <button class="tab-btn" onclick="showTab('food', this)">
         <span class="tab-icon">🍖</span>FoodBuffs Codes
+      </button>
+      <button class="tab-btn" onclick="showTab('consumables', this)">
+        <span class="tab-icon">⚗</span>Consumables List
       </button>
       <button class="tab-btn" onclick="showTab('mq', this)">
         <span class="tab-icon">📖</span>MQ EXP Calculator
@@ -1122,9 +1130,13 @@
       <button class="tab-btn" onclick="showTab('members', this)">
         <span class="tab-icon">👥</span>Guild Members
       </button>
+      <button class="tab-btn" onclick="showTab('gallery', this)">
+        <span class="tab-icon">🖼</span>Guild Gallery
+      </button>
       <button class="tab-btn" onclick="showTab('tips', this)">
         <span class="tab-icon">📜</span>Guild Tips
       </button>
+
       <!--
       <button class="tab-btn" onclick="showTab('gallery', this)">
         <span class="tab-icon">🖼</span>Gallery
@@ -1288,7 +1300,7 @@
       <!-- LEVEL 179-183 -->
       <div class="boss-card type-mini" data-type="mini" data-text="altoplebas roroko plains 179 183">
         <div class="boss-header">
-          <div class="boss-name">Altoblepas</div>
+          <div class="boss-name">Altoplebas</div>
           <div class="lvl-col"><span class="lvl-range-big">179–183</span><div class="boss-level-label">Char Level</div></div>
         </div>
         <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-char">Character</span></div>
@@ -1304,7 +1316,7 @@
         </div>
         <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-char">Character</span><span class="chip chip-diff">Ultimate</span></div>
         <div class="boss-location">📍 Dark Dragon Shrine</div>
-        <div class="boss-tips">High damage boss — come geared. Ultimate only for this level bracket. Dark element — equip dte dark/dark resist gear.</div>
+        <div class="boss-tips">High damage boss — come geared. Ultimate only for this level bracket. Light element — equip dark/dark resist gear.</div>
         <div class="boss-exp-note">✦ Requires solid equipment to farm efficiently</div>
       </div>
 
@@ -1491,7 +1503,7 @@
       </div>
 
     </div><!-- /boss-grid -->
-
+    
   
     <!-- ✏ HOW TO EDIT THIS SECTION -->
      <!--
@@ -1610,8 +1622,21 @@
 
     <div class="coryn-link-bar">
       <p><strong>Key rule:</strong> Pets earn EXP from boss kills only — not quests. Never let your pet die during a fight or it gets <strong>zero EXP</strong> for that run. Boss Easy mode is safest. Use EXP books to double gains.</p>
-      <a href="https://coryn.club/pet_leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Coryn Leveling Tool</a>
-    </div>
+      <a href="https://coryn.club/pet_leveling.php" target="_blank" rel="noopener" class="btn-link">🔗 Coryn Leveling Tool</a></div>
+
+      <div><p><h3>Quick Tips</h3></p></div>
+      <div class="edit-step"><div class="edit-step-num">1</div><p>Use <strong>traits</strong> like <strong>Lucky Experience</strong> or <strong>Pet EXP Gain</strong> for more EXP and faster leveling</p></div>
+      <div class="edit-step"><div class="edit-step-num">2</div><p><strong>ADDITIONAL with Pet EXP Bonuses:</strong>DL Memorial Badge (+10%), Gift Box Earrings (+10%), Otter Scarf (+10%), Fluffy Snow Oil (+10%), Insect Cage (+10%)</p></div>
+      <div class="edit-step"><div class="edit-step-num">3</div><p><strong>ARMOR with Pet EXP Bonuses:</strong> Pom Loungewear (+20%), Stoodie Robe (+20%), Winter Outfit III (+10%), Oriental Robe (+10%)</p></div>
+      <div class="edit-step"><div class="edit-step-num">4</div><p><strong>RING with Pet EXP Bonuses:</strong> Glowing Sea Talisman (+15%), Gleeful Vine Bangle (+15%), Happy Talisman (+10%), Glory Ring Memory (+10%), Toe Beans Talisman (+10%)</p></div>
+      <div class="edit-step"><div class="edit-step-num">5</div><p><strong>WEAPONS with Pet EXP Bonuses:</strong> Mop (+10%),  Sweet Potato Hammer (+10%), Birdie Wings (+5%)</p></div>
+
+      <ul style="margin-top:12px;">
+        <li><strong>Golden rule:</strong> Pets get 0 EXP if they die — always recommend Easy mode unless the spot is known safe.</li>
+        <li>Pets earn EXP from boss kills only — not quests. Use EXP books to double gains.</li>
+        <li><strong>100% Affinity = +1000% Pet Exp</strong></li>
+      </ul>
+      <br> 
 
     <div class="search-bar">
       <input type="text" class="search-input" id="pet-search" placeholder="Search boss or location…" oninput="filterCards('pet-search','pet-grid','boss-card')">
@@ -1629,19 +1654,29 @@
         </div>
         <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy → Normal</span></div>
         <div class="boss-location">📍 Sofya City: Sewers</div>
-        <div class="boss-tips">Use Easy mode to keep your pet safe. The boss is weak enough that pets survive. Fast respawn between runs.</div>
         <div class="boss-exp-note">✦ Safest early pet leveling boss</div>
       </div>
 
       <div class="boss-card type-mini" data-type="mini" data-text="metal stinger akaku desert pet mid level mini boss">
         <div class="boss-header">
-          <div class="boss-name">Metal Stinger</div>
-          <div class="lvl-col"><span class="lvl-range-big">40–90</span><div class="boss-level-label">Pet Level</div></div>
+          <div class="boss-name">Big Mask</div>
+          <div class="lvl-col"><span class="lvl-range-big">1-70</span><div class="boss-level-label">Pet Level</div></div>
         </div>
         <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
-        <div class="boss-location">📍 Akaku Desert: Area 1</div>
-        <div class="boss-tips">High EXP mini-boss. Good for mid-level pets. Keep your pet healed — mini-bosses hit harder than normal mobs. Use Revita potions.</div>
+        <div class="boss-location">📍 Hoatas Ravine</div>
         <div class="boss-exp-note">✦ Community favorite for pet grinding</div>
+      </div>
+
+      
+       <div class="boss-card type-boss" data-type="boss" data-text="gespenst sofya sewers pet early low level">
+        <div class="boss-header">
+          <div class="boss-name">Ancient Empress</div>
+          <div class="lvl-col"><span class="lvl-range-big">1–180</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Normal Mode</span></div>
+        <div class="boss-location">📍 Harde Hill</div>
+        <div class="boss-tips">Use Normal mode to keep your pet safe. Base EXP 500k/run</div>
+        <div class="boss-exp-note">✦ Fastest early pet leveling boss</div>
       </div>
 
       <div class="boss-card type-mini" data-type="mini" data-text="lapin necromancer trace dark river mini boss pet">
@@ -1665,32 +1700,75 @@
         <div class="boss-tips">Easy mode keeps pets alive. Good EXP with low survival risk. Double up character leveling here.</div>
       </div>
 
-      <div class="boss-card type-boss" data-type="boss" data-text="venena ultimea palace pet high level ultimate">
+      <div class="boss-card type-boss" data-type="boss" data-text="gespenst sofya sewers pet early low level">
         <div class="boss-header">
-          <div class="boss-name">Venena Metacoenubia</div>
-          <div class="lvl-col"><span class="lvl-range-big">130–200</span><div class="boss-level-label">Pet Level</div></div>
+          <div class="boss-name">Crystal Titan</div>
+          <div class="lvl-col"><span class="lvl-range-big">190-220</span><div class="boss-level-label">Pet Level</div></div>
         </div>
-        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy → Hard</span></div>
-        <div class="boss-location">📍 Ultimea Palace: Throne</div>
-        <div class="boss-tips">High EXP for high-level pets. Run Easy/Hard to keep pets alive. This boss has powerful AoE — position carefully.</div>
-        <div class="boss-exp-note">✦ Best high-level pet spot overall</div>
+        <div class="boss-meta"><span class="chip chip-boss">Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Ultimate Mode</span></div>
+        <div class="boss-location">📍 Decaying Ruins</div>
+        <div class="boss-tips">Use Ultimate mode for faster leveling your pet.</div>
+        <div class="boss-exp-note">✦ Fastest pet leveling boss</div>
       </div>
 
-      <div class="boss-card type-boss" data-type="boss" data-text="any boss easy mode pet safe general tip">
+      <div class="boss-card type-boss" data-type="boss" data-text="gespenst sofya sewers pet early low level">
         <div class="boss-header">
-          <div class="boss-name">Any Boss — Easy Mode</div>
-          <div class="lvl-col"><span class="lvl-range-big">All</span><div class="boss-level-label">Pet Levels</div></div>
+          <div class="boss-name">Gigantic Octopus</div>
+          <div class="lvl-col"><span class="lvl-range-big">160-240</span><div class="boss-level-label">Pet Level</div></div>
         </div>
-        <div class="boss-meta"><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Easy</span></div>
-        <div class="boss-location">📍 Any boss map</div>
-        <div class="boss-tips">The universal rule: fight bosses at Easy difficulty for safe pet leveling. Pets can't dodge most boss attacks, so lower difficulty = more runs with less healing cost.</div>
-        <div class="boss-exp-note">✦ Stack EXP Books for double gains</div>
+        <div class="boss-meta"><span class="chip chip-boss">LIMITED Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Ultimate Mode</span></div>
+        <div class="boss-location">📍 Saltau Beach</div>
+        <div class="boss-tips">Use Ultimate mode for faster leveling your pet. EVENT BOSS ONLY(SUMMER EVENT), go level while it's available</div>
+        <div class="boss-exp-note">✦ Fastest pet leveling boss</div>
       </div>
 
-    </div>
+      <div class="boss-card type-mini" data-type="mini" data-text="lapin necromancer trace dark river mini boss pet">
+        <div class="boss-header">
+          <div class="boss-name">San Bandit Leader</div>
+          <div class="lvl-col"><span class="lvl-range-big">220-240</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
+        <div class="boss-location">📍 Geist Desert: Area 3</div>
+        <div class="boss-tips">Excellent pet EXP. Best for Paladin.</div>
+        <div class="boss-exp-note">✦ High-risk, high-reward pet spot</div>
+      </div>
 
+      <div class="boss-card type-mini" data-type="mini" data-text="lapin necromancer trace dark river mini boss pet">
+        <div class="boss-header">
+          <div class="boss-name">Trus</div>
+          <div class="lvl-col"><span class="lvl-range-big">240-290</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
+        <div class="boss-location">📍 Propulsion System Zone: Power Tank</div>
+        <div class="boss-tips">Excellent pet EXP</div>
+        <div class="boss-exp-note">✦ High-risk, high-reward pet spot</div>
+      </div>
+
+      <div class="boss-card type-boss" data-type="boss" data-text="gespenst sofya sewers pet early low level">
+        <div class="boss-header">
+          <div class="boss-name">7th Megiston</div>
+          <div class="lvl-col"><span class="lvl-range-big">260-320</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-boss">LIMITED Boss</span><span class="chip chip-pet">Pet</span><span class="chip chip-diff">Normal Mode</span></div>
+        <div class="boss-location">📍 7th Anniversary Arena</div>
+        <div class="boss-tips">Use Normal mode for faster leveling your pet. EVENT BOSS ONLY(Anniversary Event), go level while it's available</div>
+        <div class="boss-exp-note">✦ Fastest pet leveling boss</div>
+      </div>
+
+      <div class="boss-card type-mini" data-type="mini" data-text="lapin necromancer trace dark river mini boss pet">
+        <div class="boss-header">
+          <div class="boss-name">Meteora</div>
+          <div class="lvl-col"><span class="lvl-range-big">290+</span><div class="boss-level-label">Pet Level</div></div>
+        </div>
+        <div class="boss-meta"><span class="chip chip-mini">Mini-Boss</span><span class="chip chip-pet">Pet</span></div>
+        <div class="boss-location">📍 Menabra Plains</div>
+        <div class="boss-tips">Excellent pet EXP</div>
+        <div class="boss-exp-note">✦ High-risk, high-reward pet spot</div>
+      </div>
+      </div>
     <!-- ✏ HOW TO EDIT THIS SECTION -->
      <!--
+    
     <div class="edit-guide-card">
       <h3>✏ How to Add or Edit Pet Leveling Spots</h3>
       <p>Find <code>#pet-grid</code> in this file. Copy any <code>&lt;div class="boss-card ..."&gt;</code> block inside it and paste it to add a new entry.</p>
@@ -1820,6 +1898,11 @@
       <div class="section-line"></div>
     </div>
 
+    <div class="raid-channel-bar">
+      <h4>Want to be a part of our Guild? Join our Discord!</h4>
+      <h4>▶ Message @alvehaz</h4>
+    </div>
+
     <div class="member-filter-bar">
       <button class="filter-btn active" onclick="filterMembers(this,'all')">All</button>
       <button class="filter-btn" onclick="filterMembers(this,'1st')">⭐ First Triad</button>
@@ -1874,18 +1957,17 @@
         <div class="member-info">
           <strong>Build:</strong> Support & Tank<br>
           <strong>Co-Founder:</strong> October 27 2025<br>
-          -<br>
-          Discord username: @mochimallowss<br>
+          
         </div>
       </div>
 
       <div class="member-card" data-role="1st">
         <div class="member-avatar"><img src="thrones.jpg" alt="Guild Logo"></div>
-        <div class="member-name">— THRONES —</div>
-        <span class="member-role-badge badge-thrones">OPEN SLOT</span>
+        <div class="member-name">— Maica哈維 —</div>
+        <span class="member-role-badge badge-thrones">Thrones</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
+          <strong>Build: Mage & Tank</strong> <br>
+          —<br>
           Advisors to the leadership.
         </div>
       </div>
@@ -1894,21 +1976,24 @@
       <div class="member-card" data-role="2nd">
         <div class="member-avatar"><img src="dominions.jpg" alt="Guild Logo"></div>
         <div class="member-name">— DOMINIONS —</div>
-        <span class="member-role-badge badge-dominion">OPEN SLOT</span>
+        <span class="member-role-badge badge-dominion">Information Broker</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
-          Guild moderators and organizers.
+          <strong>🪽Vivianne</strong><br>
+          —<br>
+          Delivers timely updates on new events, news, and in-game developments to the Angels.<br>
+          A knowledge-driven player who stays ahead and keeps the guild informed in Toram Online.
+
         </div>
       </div>
 
       <div class="member-card" data-role="2nd">
         <div class="member-avatar"><img src="virtuous.jpg" alt="Guild Logo"></div>
         <div class="member-name">— VIRTUOUS —</div>
-        <span class="member-role-badge badge-virtuous">OPEN SLOT</span>
+        <span class="member-role-badge badge-virtuous">Support & Tanks</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
+          <strong>Members:</strong> <br>
+          <strong>🪽Xenonl OnlinE </strong>- Tank<br>
+          <strong>🪽Angelycism </strong>- Support<br>—<br>
           The guild’s primary Supports and Tanks, responsible for protecting and sustaining the team during battles and raids.
         </div>
       </div>
@@ -1921,7 +2006,7 @@
           <strong>1st Seat:</strong> Selene<br>
           <strong>2nd Seat:</strong> Luck<br>
           <strong>3rd Seat:</strong> Haroumi<br>
-          <strong>4th Seat:</strong> Vorpal Bunny<br>
+          <strong>4th Seat:</strong> -<br>
           <strong>5th Seat:</strong> -<br>
           <strong>6th Seat:</strong> -<br>
           <strong>7th Seat:</strong> -<br>
@@ -1929,7 +2014,8 @@
           <strong>9th Seat:</strong> -<br>
           <strong>10th Seat:</strong> -<br>
           -<br>
-          Top attackers and elite players recognized for exceptional combat ability.
+          Top attackers and elite players recognized for exceptional combat ability. Known for skill, dedication, and competitive spirit.
+
         </div>
       </div>
 
@@ -1937,10 +2023,10 @@
       <div class="member-card" data-role="3rd">
         <div class="member-avatar"><img src="principalities.jpg" alt="Guild Logo"></div>
         <div class="member-name">— PRINCIPALITIES —</div>
-        <span class="member-role-badge badge-principalities">OPEN SLOT</span>
+        <span class="member-role-badge badge-principalities">Ascecion Gate</span>
         <div class="member-info">
-          <strong>Build:</strong> —<br>
-          <strong>Joined:</strong> —<br>
+          <strong>🪽TSURUNE</strong><br>
+          —<br>
           Manage the Ascension Gate, guiding and admitting future Angels into the guild and ensuring they properly join the Discord community.
         </div>
       </div>
@@ -1951,10 +2037,12 @@
         <span class="member-role-badge badge-archangels">OPEN SLOT</span>
         <div class="member-info">
           <strong>Archangel:</strong> <br>
-          Clavis<br>
-          TSURUNE<br>
+          <strong>🪽Clavis</strong><br>
+          <strong>🪽TSURUNE</strong><br>
+          <strong>🪽Kno6640</strong><br>
+          <strong>🪽ClaraClanna</strong><br>
           -<br>
-          High-ranking guild members responsible for inviting new Angels and representing the guild with authority.
+          High-ranking guild members responsible for inviting new Angels and representing the guild with authority. Regular, active members who embody teamwork and loyalty.
         </div>
       </div>
 
@@ -1964,15 +2052,7 @@
         <span class="member-role-badge badge-angel">OPEN SLOT</span>
         <div class="member-info">
           <strong>Angels:</strong> <br>
-          Chi<br>
-          Elliya<br>
-          Eva<br>
-          Ha-Ha <br>
-          Haruna<br>
-          Haruka<br>
-          K-Y-O-T-O<br>
-          Nobody10<br>
-          VoidwalkerB<br>
+          ALL GUILD MEMBERS<br>
           -<br>
           The heart of the community and the foundation of the Choirs of Angels.
         </div>
@@ -2038,37 +2118,45 @@
 
       <!-- PLACEHOLDER 1 -->
       <div class="gallery-card" onclick="openLightbox(this)">
-        <div class="gallery-img-wrap">📸</div>
+        <div class="gallery-img-wrap">
+          <img src="https://media.discordapp.net/attachments/1439244127295242271/1439250445267763292/IMG_6088.png?ex=6a8a512e&is=6a88ffae&hm=910f4b8e22349417bf37f86b4924d2370264fa98220866369fece7126c743219&=&format=webp&quality=lossless&width=1024&height=479" alt="FIRST GUILDRAID">
+        </div>
         <div class="gallery-caption">
-          <div class="gallery-caption-title">— Add a screenshot here —</div>
-          <div class="gallery-caption-meta">Replace the 📸 emoji with an &lt;img&gt; tag pointing to your image file</div>
+          <div class="gallery-caption-title">— FIRST GUILD RAID —</div>
+          <div class="gallery-caption-meta"> Mighty Chimera · 📅 Date: 15-NOV-2025 &nbsp;·&nbsp;  </div>
         </div>
       </div>
 
       <!-- PLACEHOLDER 2 -->
       <div class="gallery-card" onclick="openLightbox(this)">
-        <div class="gallery-img-wrap">🏆</div>
+        <div class="gallery-img-wrap">
+           <img src="https://media.discordapp.net/attachments/1439244127295242271/1441415222190538854/image.png?ex=6a8a4849&is=6a88f6c9&hm=096e351af2a24f50935606117a7c29f47994dc9f53b4661de69d492b107d58cb&=&format=webp&quality=lossless&width=1024&height=482">
+        </div>
         <div class="gallery-caption">
-          <div class="gallery-caption-title">— Add a guild achievement here —</div>
-          <div class="gallery-caption-meta">Boss kill · 📅 Date &nbsp;·&nbsp; 📸 Photographer</div>
+          <div class="gallery-caption-title">— CUTE STYLE GUILD BAR UNLOCKED—</div>
+          <div class="gallery-caption-meta">Aera, Alvehaz, Haeria, and Clavis · 📅 Date: 21-NOV-2025 &nbsp;·&nbsp;  </div>
         </div>
       </div>
 
       <!-- PLACEHOLDER 3 -->
       <div class="gallery-card" onclick="openLightbox(this)">
-        <div class="gallery-img-wrap">⚔</div>
+        <div class="gallery-img-wrap">
+           <img src="https://media.discordapp.net/attachments/1439244127295242271/1454468960077615104/IMG_3559.png?ex=6a8a4f86&is=6a88fe06&hm=51631a49a11ce151d04d8fafa44691ef0ad33de3d1d3d3e37610df18bf320976&=&format=webp&quality=lossless&width=1024&height=481" alt="New Year Raid">
+        </div>
         <div class="gallery-caption">
-          <div class="gallery-caption-title">— Add a raid screenshot here —</div>
-          <div class="gallery-caption-meta">Guild raid · 📅 Date</div>
+          <div class="gallery-caption-title">— NEW YEAR RAID —</div>
+          <div class="gallery-caption-meta">Guild raid · 📅 Date: 31-DEC-2025 &nbsp;·&nbsp;  </div>
         </div>
       </div>
 
       <!-- PLACEHOLDER 4 -->
       <div class="gallery-card" onclick="openLightbox(this)">
-        <div class="gallery-img-wrap">🎉</div>
+        <div class="gallery-img-wrap">
+          <img src="https://media.discordapp.net/attachments/1439244127295242271/1538557361117986927/IMG_3476.png?ex=6a8a5cf3&is=6a890b73&hm=46de02fcd02e0b02a9439f1bb90f7522f5254510ab40bc490f85f3f365c45fab&=&format=webp&quality=lossless&width=1024&height=682" alt="LATEST GUILD RAID">
+        </div>
         <div class="gallery-caption">
-          <div class="gallery-caption-title">— Add a guild event photo here —</div>
-          <div class="gallery-caption-meta">Guild event · 📅 Date</div>
+          <div class="gallery-caption-title">— LATEST GUILD RAID —</div>
+          <div class="gallery-caption-meta">Guild Raid · 📅 Date: 16-AUG-2026</div>
         </div>
       </div>
 
@@ -2380,7 +2468,8 @@
           <tr data-cat="dtee" data-text="dtee">
             <td class="item-name">— DTE Earth LV 10—</td>
             <td class="effect-hp">+15% DTE Earth</td>
-            <td><code class="buff-code buff-code--empty">2020202</code>
+            <td><code class="buff-code buff-code--empty">2210103</code>
+            <code class="buff-code buff-code--empty">2020202</code>
             <code class="buff-code buff-code--empty">7100666</code>
             <code class="buff-code buff-code--empty">LV 8 1010216</code>
             </td>
@@ -2391,7 +2480,8 @@
           <tr data-cat="dtef" data-text="dtef">
             <td class="item-name">— DTE Fire LV 10—</td>
             <td class="effect-hp">+15% DTE Fire</td>
-            <td><code class="buff-code buff-code--empty">3210106</code>
+            <td><code class="buff-code buff-code--empty">2210106</code>
+              <code class="buff-code buff-code--empty">3210106</code>
             <code class="buff-code buff-code--empty">9181111</code>
             </td>
             <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Fire</span></td>
@@ -2401,7 +2491,8 @@
           <tr data-cat="dtewr" data-text="dtewr">
             <td class="item-name">— DTE Water LV 10—</td>
             <td class="effect-hp">+15% DTE Water</td>
-            <td><code class="buff-code buff-code--empty">7150030</code>
+            <td><code class="buff-code buff-code--empty">2210100</code>
+              <code class="buff-code buff-code--empty">7150030</code>
             </td>
             <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Water</span></td>
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
@@ -2410,7 +2501,8 @@
           <tr data-cat="dtewd" data-text="dtewd">
             <td class="item-name">— DTE Wind LV 10—</td>
             <td class="effect-hp">+15% DTE Wind</td>
-            <td><code class="buff-code buff-code--empty">7257777</code>
+            <td><code class="buff-code buff-code--empty">2210101</code>
+              <code class="buff-code buff-code--empty">7257777</code>
             <code class="buff-code buff-code--empty">3030303</code>
             </td>
             <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Wind</span></td>
@@ -2420,7 +2512,8 @@
           <tr data-cat="dted" data-text="dted">
             <td class="item-name">— DTE Dark LV 10—</td>
             <td class="effect-hp">+15% DTE Dark</td>
-            <td><code class="buff-code buff-code--empty">1190020</code>
+            <td><code class="buff-code buff-code--empty">2210104</code>
+              <code class="buff-code buff-code--empty">1190020</code>
             <code class="buff-code buff-code--empty">2130776</code>
             <code class="buff-code buff-code--empty">6116116</code>
             <code class="buff-code buff-code--empty">5010092</code>
@@ -2430,19 +2523,21 @@
           </tr>
 
            <tr data-cat="dtel" data-text="dtel">
-            <td class="item-name">— DTE Light LV 9—</td>
-            <td class="effect-hp">+13% DTE Light</td>
-            <td><code class="buff-code buff-code--empty">1105050</code>
-            <code class="buff-code buff-code--empty">3111999</code>
+            <td class="item-name">— DTE Light LV 10—</td>
+            <td class="effect-hp">+15% DTE Light</td>
+            <td><code class="buff-code buff-code--empty">2210105</code>
+              <code class="buff-code buff-code--empty">LVL 9 1105050</code>
+            <code class="buff-code buff-code--empty">LVL 9 3111999</code>
             </td>
             <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DTE Light</span></td>
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
           </tr>
 
           <tr data-cat="dtn" data-text="dtn">
-            <td class="item-name">— DT Neutral LV 8—</td>
-            <td class="effect-hp">+11% DT Neutral</td>
-            <td><code class="buff-code buff-code--empty">1234561</code>
+            <td class="item-name">— DT Neutral LV 10—</td>
+            <td class="effect-hp">+15% DT Neutral</td>
+            <td><code class="buff-code buff-code--empty">2210102</code>
+              <code class="buff-code buff-code--empty">LVL 8 1234561</code>
             </td>
             <td><span class="chip chip-dte" style="font-size:11px; white-space: nowrap;">DT Neutral</span></td>
             <td style="font-size:12px;color:var(--text-dim)">Try other codes in case the landowner didn't cook</td>
@@ -2559,11 +2654,11 @@
       <input type="text" class="search-input" id="cons-search" placeholder="Search consumable…" oninput="filterTable('cons-search','cons-tbody','cons-cat')">
       <select class="filter-select" id="cons-cat" onchange="filterTable('cons-search','cons-tbody')">
         <option value="all">All Categories</option>
-        <option value="healing">Healing</option>
-        <option value="attack">Attack Boost</option>
-        <option value="magic">Magic Boost</option>
-        <option value="defense">Defense / Resist</option>
-        <option value="utility">Utility</option>
+        <option value="hp boost">MaxHP Boost & Recovery</option>
+        <option value="mp boost">MaxMP Boost & Recovery</option>
+        <option value="atk boost">ATK & MATK Boost</option>
+        <option value="defense">DEF & RESIST</option>
+        <option value="speed">ASPD & CSPD Boost</option>
       </select>
     </div>
 
@@ -2579,172 +2674,543 @@
           </tr>
         </thead>
         <tbody id="cons-tbody">
+           <!-- DTE -->
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Barmbrack</td>
+            <td class="effect-exp">🤎 Damage to Earth +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Ginger Cake</td>
+            <td class="effect-exp">💙Damage to Water +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Pumpkin Cookie</td>
+            <td class="effect-exp">🧡 Damage to Fire +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Jack Pudding</td>
+            <td class="effect-exp">💚 Damage to Wind +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Zombie Cake</td>
+            <td class="effect-exp">🖤 Damage to Dark +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Pumpkin Candy</td>
+            <td class="effect-exp">🤍 Damage to Light +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Pumpkin Soup</td>
+            <td class="effect-exp">🩶 Damage to Neutral +5% <br> ⚡️ASPD +100 <br> 🪽CSPD +100 </td>
+            <td>10 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Events / Shop </td>
+          </tr>
+          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
+            <td class="item-name">Glow Ray Soup</td>
+            <td class="effect-exp">💙 Damage to Water +2% 
+            <br> 🧡 Damage to Fire +2% 
+            <br> 💚 Damage to Wind +2% 
+            <br> 🤎 Damage to Earth +2% 
+            <br> 🖤 Damage to Dark +2% 
+            <br> 🤍 Damage to Light +2%
+            </td>
+            <td>30 min</td>
+            <td><span class="chip chip-util" style="font-size:11px;">DTE</span></td>
+            <td>Groom Box / Shop </td>
+          </tr>
+
           <!-- HEALING -->
-          <tr data-cat="healing" data-text="revita potion hp heal recovery alchemy">
-            <td class="item-name">Revita I / II / III</td>
-            <td class="effect-hp">Restores HP (Low → Medium → High)</td>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Dragon Steak</td>
+            <td class="effect-hp">🌱MaxHP +1500 <br>⚡️ASPD +250</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Groom Box</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Sugar Cookie</td>
+            <td class="effect-hp">🌱MaxHP +1500 <br>🧪MaxMP +200</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Ragus - Manor of Surprises</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Zombie Meat</td>
+            <td class="effect-hp">🌱MaxHP +10000 <br>⚡️ASPD 🔻-1000</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Wandead - Deusania's Lab</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Eggplant Tempura</td>
+            <td class="effect-hp">🌱MaxHP +1000 <br>📈 EXP +%10</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Aubergine Dragon Auvio</td>
+          </tr>
+           <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Tough Lamb Meat</td>
+            <td class="effect-hp">🌱MaxHP +750 <br>⚔️ STR +5</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Pecora - Cradle of Soldiers</td>
+          </tr>
+           <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Salt-Grilled Saury</td>
+            <td class="effect-hp">🌱MaxHP +1000 <br>🔋Natural HP Regen +%100</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Persimmon Coryn</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Iced Chicken Vita</td>
+            <td class="effect-hp">🌱MaxHP +1000 <br>👹Aggro -%30</td>
+            <td>30 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Corey & Gegner</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Bone-In Short Rib</td>
+            <td class="effect-hp">🌱MaxHP +%10 <br>🗡️ATK +25</td>
+            <td>20 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Fladorga & Jive - Little Shrine of Grace</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Charred Salamander Meat</td>
+            <td class="effect-hp">🌱MaxHP +4000 <br>🗡️ATK UP VIT +%20 <br>🪄MATK UP VIT +%20</td>
+            <td>20 minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Lord of Nezim</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Death Truffle</td>
+            <td class="effect-hp">🌱MaxHP 🔻-%100</td>
             <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Super Death Mushroom</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Wedding Wine</td>
+            <td class="effect-hp">🌱MaxHP +3000 <br>🧪MaxMP +100</td>
+            <td>Instant</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Groom/Bride Box</td>
+          </tr>
+          <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Roast Chicken</td>
+            <td class="effect-hp">🔋Restores HP 10% every 10s</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Noeliel the Ice Statue</td>
+          </tr>
+              <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Monkey Energy</td>
+            <td class="effect-hp">🔋Restores HP 3000 every 10s</td>
+            <td>1 Minute</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Bullamius</td>
+          </tr>
+               <tr data-cat="hp boost" data-text="hp heal">
+            <td class="item-name">Healing Mint</td>
+            <td class="effect-hp">🔋Restores HP 2500 every 3s</td>
+            <td>13 Sec</td>
+            <td><span class="chip chip-pet" style="font-size:11px;">HP boost</span></td>
+            <td>Healily - Tolbas Grassland</td>
+          </tr>
+
+          <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Magiadd VI</td>
+            <td class="effect-mp">🧪MaxMP +600</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
             <td>Alchemy / Shops</td>
           </tr>
-          <tr data-cat="healing" data-text="star revita hp heal recovery high">
-            <td class="item-name">Star Revita</td>
-            <td class="effect-hp">Restores HP — higher than Revita III</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
-            <td>Alchemy (high level)</td>
+          <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Sauteed Lonogo Shrimp</td>
+            <td class="effect-mp">🧪MaxMP +300 <br>🪽CSPD +250</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>Bride Box</td>
           </tr>
-          <tr data-cat="healing" data-text="medicine potion mp recover magic">
-            <td class="item-name">Medicine I / II</td>
-            <td class="effect-hp">Restores MP</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
+           <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Aggro Tonic</td>
+            <td class="effect-mp">🧪MaxMP +200 <br>👹Aggro +%20</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
             <td>Alchemy / Shops</td>
           </tr>
-          <tr data-cat="healing" data-text="egg mp recovery 50">
-            <td class="item-name">Egg</td>
-            <td class="effect-hp">Recovers 50 MP</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
-            <td>Pojo (Manor Clearing Ground)</td>
+           <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Mashed Sweet Potato</td>
+            <td class="effect-mp">🧪MaxMP +200 <br>☀️NMPR +100%</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>Persimmon Coryn / Shops</td>
           </tr>
-          <tr data-cat="healing" data-text="sweet potato hp 350 recovery heal">
-            <td class="item-name">Sweet Potato</td>
-            <td class="effect-hp">Recovers 350 HP</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
-            <td>Snow Little Boa (Forde Ice Valley)</td>
+           <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Forbidden Nut</td>
+            <td class="effect-mp">🧪MaxMP +300 <br>🌱 MaxHP 🔻-99% (Use only at full HP) </td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>Persimmon Coryn / Shops</td>
           </tr>
-          <tr data-cat="healing" data-text="potato hp 50 recover heal">
-            <td class="item-name">Potato</td>
-            <td class="effect-hp">Recovers 50 HP</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
-            <td>Hedera (Temple of the Dark Dragon)</td>
+          <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Champagne</td>
+            <td class="effect-mp">🧪Restores MP 100 every 10s</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>P. Avatar / Noeliel the Ice Statue</td>
           </tr>
-          <tr data-cat="healing" data-text="clean water hp mp 30 both heal">
-            <td class="item-name">Clean Water</td>
-            <td class="effect-hp">Recovers HP and MP by 30</td>
-            <td>Instant</td>
-            <td><span class="chip chip-pet" style="font-size:11px;">Healing</span></td>
-            <td>Fra Pen (Spring of Past Life)</td>
+          <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Snow Wine</td>
+            <td class="effect-mp">🧪Restores MP 10% every 10s  Up to 100 MP per tick</td>
+            <td>15 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>Shops</td>
           </tr>
-          <!-- ATTACK -->
-          <tr data-cat="attack" data-text="hot mushroom atk 10 1% attack power">
-            <td class="item-name">Hot Mushroom</td>
-            <td class="effect-atk">ATK +10 & +1%</td>
+          <tr data-cat="mp boost" data-text="mp boost">
+            <td class="item-name">Mana Catalyst</td>
+            <td class="effect-mp">🧪AMPR +8</td>
+            <td>30 Minutes</td>
+            <td><span class="chip chip-mp" style="font-size:11px;">MP boost</span></td>
+            <td>Synth / Shops</td>
+          </tr>
+          <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Energy Pill</td>
+            <td class="effect-atk">🗡️ATK +50 <br>🗡️ATK +5%</td>
             <td>30 min</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Farmable / Cooking</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <tr data-cat="attack" data-text="doping extract atk 20 2% attack power boost">
-            <td class="item-name">Doping Extract</td>
-            <td class="effect-atk">ATK +20 & +2%</td>
-            <td>30 min</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Monster Drop / Market</td>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Pumpkie Parfait</td>
+            <td class="effect-atk">🗡️ATK +6%</td>
+            <td>15 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Calabari - Rirus Valley</td>
           </tr>
-          <tr data-cat="attack" data-text="massive oil atk 30 3% oil attack strength">
-            <td class="item-name">Massive Oil</td>
-            <td class="effect-atk">ATK +30 & +3%</td>
-            <td>30 min</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Monster Drop / Craft</td>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Supplement (Muscle) </td>
+            <td class="effect-atk">🗡️ATK +4% <br>⚔️STR+2% <br>🎯Accuracy +1%</td>
+            <td>15 min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Calabari - Rirus Valley</td>
           </tr>
-          <tr data-cat="attack" data-text="powerful candy atk 40 4% attack sweet">
-            <td class="item-name">Powerful Candy</td>
-            <td class="effect-atk">ATK +40 & +4%</td>
-            <td>30 min</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Monster Drop</td>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Lantern Cake </td>
+            <td class="effect-atk">🗡️ATK +10% <br>🏃🏻‍♂️MOTION SPEED 🔻-10%</td>
+            <td>30 SEC</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>LANBAT - Phantom Wisp's Hideout</td>
           </tr>
-          <tr data-cat="attack" data-text="slash oil atk 100 5% sword blade sharp attack">
-            <td class="item-name">Slash Oil</td>
-            <td class="effect-atk">ATK +100 & +5% (ends after 1 hit)</td>
-            <td>30 min / 1 hit</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Craft / Market</td>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Blade Oil </td>
+            <td class="effect-atk">🗡️Unseathed ATK +5% <br>🗡️Unseathed ATK +100 </td>
+            <td>30 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <tr data-cat="attack" data-text="citrus proofru atk 5 5% 60 seconds jelly">
-            <td class="item-name">Citrus Proofru</td>
-            <td class="effect-atk">ATK +5 & +5% for 60 seconds</td>
-            <td>60 sec</td>
-            <td><span class="chip chip-boss" style="font-size:11px;">Attack</span></td>
-            <td>Orange Jelly (Magical Waste Treatment)</td>
+          <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Penetrating Oil </td>
+            <td class="effect-atk">🗡️ ATK +3%  <br>📌Physical Pierce +10% </td>
+            <td>30 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Synth / Shops</td>
           </tr>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Melting Candy </td>
+            <td class="effect-atk"> 📌Physical Pierce +10% </td>
+            <td>5 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Tungkin - Phasma Forest</td>
+          </tr>
+           <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Morning Star Gummy </td>
+            <td class="effect-atk"> 📌Physical Pierce +5% <br>🪛Critical Rate +40% </td>
+            <td>10 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Spectern - Deusania's Lab</td>
+          </tr>
+          <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Matsutake Soup </td>
+            <td class="effect-atk">🗡️Weapon ATK +10% <br>⚔️AMPR +10 </td>
+            <td>15 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Persimmon Coryn</td>
+          </tr>
+          <tr data-cat="atk boost" data-text="atk boost">
+            <td class="item-name">Eggplant Agebitashi </td>
+            <td class="effect-atk">🗡️Weapon ATK +10% <br>⚔️AMPR +10 </td>
+            <td>30 Min</td>
+            <td><span class="chip chip-boss" style="font-size:11px;">ATK/PP Boost</span></td>
+            <td>Aubergine Dragon Auvio</td>
+          </tr>
+
           <!-- MAGIC -->
-          <tr data-cat="magic" data-text="trave gummi matk 10 1% magic attack">
-            <td class="item-name">Trave Gummi</td>
-            <td class="effect-matk">MATK +10 & +1%</td>
+          <tr data-cat="atk boost" data-text="matk boost">
+            <td class="item-name">Sorcerer's Nostrum</td>
+            <td class="effect-matk">🪄MATK +50 <br>🪄MATK +5%</td>
             <td>30 min</td>
-            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
-            <td>Farmable / Cooking</td>
+            <td><span class="chip chip-char" style="font-size:11px;">MATK/ M Pierce</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <tr data-cat="magic" data-text="magical juniper matk 20 2% magic attack incense">
-            <td class="item-name">Magical Juniper</td>
-            <td class="effect-matk">MATK +20 & +2%</td>
+           <tr data-cat="atk boost" data-text="matk boost">
+            <td class="item-name">Sparkly Candy</td>
+            <td class="effect-matk">🪄MATK +10% <br>🏃🏻‍♂️Motion Speed 🔻-10%</td>
+            <td>30 sec</td>
+            <td><span class="chip chip-char" style="font-size:11px;">MATK/ M Pierce</span></td>
+            <td>Galamp - Phantom Wisp's Hideout</td>
+          </tr>
+          <tr data-cat="atk boost" data-text="matk boost">
+            <td class="item-name">Barrier Analyzer Lithograph</td>
+            <td class="effect-matk">🪄MATK +3% <br>📌Magic Pierce +10%</td>
             <td>30 min</td>
-            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
-            <td>Cooking Recipe</td>
+            <td><span class="chip chip-char" style="font-size:11px;">MATK/ M Pierce</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <tr data-cat="magic" data-text="monster jar matk 40 4% magic drink">
-            <td class="item-name">Monster Jar</td>
-            <td class="effect-matk">MATK +40 & +4%</td>
-            <td>30 min</td>
-            <td><span class="chip chip-char" style="font-size:11px;">Magic</span></td>
-            <td>Monster Drop / Craft</td>
+          <tr data-cat="atk boost" data-text="matk boost">
+            <td class="item-name">Mummy Roll Cake</td>
+            <td class="effect-matk">🪄MATK +5% <br>🪛Critical Rate +40%</td>
+            <td>10 min</td>
+            <td><span class="chip chip-char" style="font-size:11px;">MATK/ M Pierce</span></td>
+            <td>Momia - Deuysania's Lab</td>
           </tr>
-          <!-- DEFENSE -->
-          <tr data-cat="defense" data-text="element drink resist fire water earth wind dark light">
+
+          <!-- DEFENSE
+          <tr data-cat="defense" data-text="def boost">
             <td class="item-name">Elemental Drinks<br><small style="color:var(--text-dim)">(Fire/Water/Earth/Wind/Dark/Light)</small></td>
             <td class="effect-util">+Elemental Resistance (varies by type)</td>
             <td>30 min</td>
             <td><span class="chip chip-diff" style="font-size:11px;">Defense</span></td>
             <td>Craft / Market — use vs element bosses</td>
           </tr>
-          <tr data-cat="defense" data-text="mokkapparat coconut jelly defense resist buff popular">
-            <td class="item-name">Mokkapparat Coconut Jelly</td>
-            <td class="effect-util">DEF buff — community recommended resistance food</td>
+          -->
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Ginkgo Nut</td>
+            <td class="effect-def"> 🛡️Physical Resistance +25% <br> 🛡️Magic Resistance +25%</td>
+            <td>15 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Synth / Shops</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Protector Plate</td>
+            <td class="effect-def"> 🛡️Physical Resistance +12%</td>
             <td>30 min</td>
-            <td><span class="chip chip-diff" style="font-size:11px;">Defense</span></td>
-            <td>Cooking / Drop</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <!-- UTILITY -->
-          <tr data-cat="utility" data-text="green jelly cspd cast speed 150 5% matk">
-            <td class="item-name">Green Gelatin</td>
-            <td class="effect-util">CSPD +150 & +5% for 1 minute</td>
-            <td>1 min</td>
-            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
-            <td>Green Jelly (Zokcda Ruins)</td>
-          </tr>
-          <tr data-cat="utility" data-text="exp book experience double leveling character pet">
-            <td class="item-name">EXP Book</td>
-            <td class="effect-exp">+100% EXP from kills (character & pet)</td>
-            <td>30–60 min</td>
-            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
-            <td>Events / Orb Shop / Guild Buffs</td>
-          </tr>
-          <tr data-cat="utility" data-text="pataririo accuracy hit 20 dex bow gun eye drop">
-            <td class="item-name">Pataririo</td>
-            <td class="effect-util">Accuracy +20</td>
+            <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Elf Berry Pot</td>
+            <td class="effect-def"> 🛡️Magic Resistance +12%</td>
             <td>30 min</td>
-            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
-            <td>Farmable / Cooking</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Synth / Shops</td>
           </tr>
-          <tr data-cat="utility" data-text="messenger ring accuracy 60 hit dex bow gun">
-            <td class="item-name">Messenger's Ring</td>
-            <td class="effect-util">Accuracy +60</td>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Soy Sauce)</td>
+            <td class="effect-def"> 🛡️Resistance to Earth +30% <br>  🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+            <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Dashi)</td>
+            <td class="effect-def"> 🛡️Resistance to Water +30% <br>  🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+            <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Sauce) </td>
+            <td class="effect-def"> 🛡️Resistance to Fire +30% <br>  🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Scallion) </td>
+            <td class="effect-def"> 🛡️Resistance to Wind +30% <br>  🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+           <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Ponzu) </td>
+            <td class="effect-def"> 🛡️Resistance to Dark +30% <br>  🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Big Takoyaki (Salt) </td>
+            <td class="effect-def"> 🛡️Resistance to Light +30% <br> 🪛Critical Rate +15</td>
+            <td>20 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Gigantic Octopus</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Roasted Eggplant </td>
+            <td class="effect-def"> 🛡️Resistance to Neutral +20% <br>  🪛Critical Rate +10</td>
+            <td>15 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Aubergine Dragon Auvio</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Fruit Cake </td>
+            <td class="effect-def"> 🛡️Resistance to Light +50% <br>  🧪MaxMP +100</td>
             <td>30 min</td>
-            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
-            <td>Monster Drop</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
           </tr>
-          <tr data-cat="utility" data-text="forbidden tree fruit hp mp 300 recovery boss">
-            <td class="item-name">Forbidden Tree Fruit</td>
-            <td class="effect-util">HP -99% but MP +300 — risky MP recovery</td>
-            <td>Instant</td>
-            <td><span class="chip chip-mini" style="font-size:11px;">Utility</span></td>
-            <td>Highlands (Temple of Gods)</td>
+           <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Ice Cream Cake </td>
+            <td class="effect-def"> 🛡️Resistance to Water +50% <br>  🧪MaxMP +100</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
           </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Chocolate Cake </td>
+            <td class="effect-def"> 🛡️Resistance to Fire +50% <br>  🧪MaxMP +100</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
+          </tr>
+           <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Cheesecake </td>
+            <td class="effect-def"> 🛡️Resistance to Wind +50% <br>  🧪MaxMP +100</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Iced Coffee </td>
+            <td class="effect-def"> 🛡️Resistance to Dark +50% <br>  🧪MaxMP +100</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
+          </tr>
+           <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Iced Choco </td>
+            <td class="effect-def"> 🛡️Resistance to Light +50% <br>  🧪MaxMP +100</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Shops</td>
+          </tr>
+          <tr data-cat="defense" data-text="def boost">
+            <td class="item-name">Romanian Eggplant Dip </td>
+            <td class="effect-def"> 🛡️Ailment Resistance +5%</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mob" style="font-size:11px;">Defense / Resistance</span></td>
+            <td>Aubergine Dragon Auvio</td>
+          </tr>
+
+
+          <!-- UTILITY ASPD/CSPD-->
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Tera Speed Potion</td>
+            <td class="effect-util">⚡️ASPD +1000</td>
+            <td>30 min</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>SYNTH / SHOPS </td>
+          </tr>
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Solid Fuel</td>
+            <td class="effect-util">🏃🏻‍♂️Motion Speed +10%</td>
+            <td>5 Sec</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Smocky </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Chirashi Sushi</td>
+            <td class="effect-util">⚡️ASPD +25% <br> ⚡️ASPD 500 <br> 🛡️DEF +75</td>
+            <td>30 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Sunken Box/ Shops </td>
+          </tr>
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Spell Headpones</td>
+            <td class="effect-util">🪽CSPD 750</td>
+            <td>30 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>SYNTH / SHOPS </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Inari Sushi</td>
+            <td class="effect-util">🪽CSPD +25% <br> 🪽CSPD 500 <br> 🛡️MDEF +75</td>
+            <td>30 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Sunken Box/ Shops </td>
+          </tr>
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Spell Headpones</td>
+            <td class="effect-util">🪽CSPD 750</td>
+            <td>30 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>SYNTH / SHOPS </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">War Dead Bracelet</td>
+            <td class="effect-util">🎯ACCURACY +60</td>
+            <td>15 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>SYNTH / SHOPS </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Sauteed Butter Nails</td>
+            <td class="effect-util">🎯ACCURACY +60 <br> 🪛Critical Rate +5</td>
+            <td>30 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Rainy Season Event / SHOPS </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Leafy Sakura Tea</td>
+            <td class="effect-util">🎯ACCURACY +12% <br> 🪛Critical Rate +6 <br> ⚖️ Stability 🔻-3% </td>
+            <td>20 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Farfalla - Leafy Sakura Village & Mt. White Peach </td>
+          </tr>
+           <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Black Gelatin</td>
+            <td class="effect-util">🪛Critical Rate +10 <br> ⚒️Critical Damage -10%</td>
+            <td>3 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Black jelly - Ancient Empress Tomb</td>
+          </tr>
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Battie Scone</td>
+            <td class="effect-util">🎯Accuracy +5% <br> 🏹Long Range Damage +5%</td>
+            <td>15 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Kuffa & Kuffania - Risus Valley</td>
+          </tr>
+          <tr data-cat="speed" data-text="speed boost">
+            <td class="item-name">Golden Pom Liquor</td>
+            <td class="effect-util">🤺Dodge +50 <br> 🎯Accuracy +50</td>
+            <td>10 mins</td>
+            <td><span class="chip chip-mini" style="font-size:11px;">SPEED / ACCURACY</span></td>
+            <td>Pomie Chan - DL Event</td>
+          </tr>
+          
         </tbody>
       </table>
     </div>
